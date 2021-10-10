@@ -3,6 +3,7 @@ import './App.css';
 import {Router} from "react-router-dom";
 import {useRoutes} from "./router";
 import { createBrowserHistory } from "history";
+import 'antd/dist/antd.css';
 
 const App: React.FC = () => {
   const history = createBrowserHistory();

@@ -1,20 +1,18 @@
-import {Route, Router, Switch} from "react-router-dom";
-import Home from "../pages/Home";
-import Auth from "../pages/Auth";
-import AuthLayout from "../layouts/AuthLayout";
+import {Redirect, Route, Router, Switch} from "react-router-dom";
+import {RouterApp, routers} from "./routers";
 
+const getFilteredRoutesByAuthorizationUser = (userIsAuth: Boolean) => routers
+    .filter(({isGuard = false}) => isGuard === userIsAuth);
 
+export const useRoutes = (isAuthorization: Boolean = false) => {
+    const filteredRoutes = getFilteredRoutesByAuthorizationUser(isAuthorization)
 
-export const useRoutes = () => {
-    const routers = [{
-        path: '/',
-        component: <Home/>,
-    },
-        {
-            path: '/auth',
-            component:<AuthLayout><Auth/></AuthLayout> ,
-        }]
     return (<Switch>
-        {routers.map(router => <Route key={router.path} exact path={router.path}>{router.component}</Route>)}
+        {filteredRoutes.map((router: RouterApp) => <Route key={router.path} exact path={router.path}>{router.component}</Route>)}
+        <Redirect
+            to={{pathname: isAuthorization ? '/' : '/auth'}}
+            exact
+        />
+
     </Switch>);
 }

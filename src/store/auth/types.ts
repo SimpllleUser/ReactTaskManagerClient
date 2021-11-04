@@ -1,0 +1,1 @@
+export const SIGN_IN = 'AUTH/SIGN_IN';

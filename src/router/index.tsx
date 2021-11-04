@@ -3,16 +3,15 @@ import {RouterApp, routers} from "./routers";
 
 const getFilteredRoutesByAuthorizationUser = (userIsAuth: Boolean) => routers
     .filter(({isGuard = false}) => isGuard === userIsAuth);
+const getRedirectPath = (isAuthorization: Boolean) => isAuthorization ? '/' : '/auth' ;
 
 export const useRoutes = (isAuthorization: Boolean = false) => {
     const filteredRoutes = getFilteredRoutesByAuthorizationUser(isAuthorization)
-
     return (<Switch>
         {filteredRoutes.map((router: RouterApp) => <Route key={router.path} exact path={router.path}>{router.component}</Route>)}
         <Redirect
-            to={{pathname: isAuthorization ? '/' : '/auth'}}
+            to={{pathname: getRedirectPath(isAuthorization) }}
             exact
         />
-
     </Switch>);
 }

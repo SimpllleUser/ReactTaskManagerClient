@@ -7,7 +7,7 @@ import 'antd/dist/antd.css';
 
 const App: React.FC = () => {
   const history = createBrowserHistory();
-  const routes = useRoutes(true);
+  const routes = useRoutes();
 
   return (
     <div className="App">

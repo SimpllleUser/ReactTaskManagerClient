@@ -1,38 +1,54 @@
-import React from 'react';
-import { Form, Input, Button, Checkbox, Modal } from 'antd';
+import React, {useState} from 'react';
+import {Form, Input, Button, Checkbox, Modal} from 'antd';
+import {useDispatch} from "react-redux";
+import {signIn} from "../store/auth/actions";
 
 const Auth: React.FC = () => {
-    return  (<div className='authorization-page'>
+    const dispatch = useDispatch();
+    const [auth, setAuth] = useState({
+        email: '',
+        password: '',
+    });
+    const userSignIn = () => {
+      dispatch(signIn(auth));
+    }
+
+    return <div className='authorization-page'>
         <Modal title="Authorization" visible={true} footer={null} closable={false}>
             <Form
-                initialValues={{ remember: true }}
+                initialValues={{remember: true}}
                 autoComplete="off"
             >
                 <Form.Item
                     label="Username"
                     name="username"
-                    rules={[{ required: true, message: 'Please input your username!' }]}
+                    rules={[{required: true, message: 'Please input your username!'}]}
                 >
-                    <Input />
+                    <Input value={auth.email}
+                           onChange={({target}) => {
+                               setAuth({...auth, email: target.value});
+                           }}/>
                 </Form.Item>
 
                 <Form.Item
                     label="Password"
                     name="password"
-                    rules={[{ required: true, message: 'Please input your password!' }]}
+                    rules={[{required: true, message: 'Please input your password!'}]}
                 >
-                    <Input.Password />
+                    <Input.Password onChange={({target}) => {
+                        setAuth({...auth, password: target.value});
+                    }}/>
                 </Form.Item>
 
-                <Form.Item wrapperCol={{ offset: 20 }}>
-                    <Button type="primary" htmlType="submit">
+                <Form.Item wrapperCol={{offset: 20}}>
+                    <Button type="primary" onClick={userSignIn}>
                         Submit
                     </Button>
                 </Form.Item>
             </Form>
         </Modal>
 
-    </div> )
+    </div>
 };
 
 export default Auth;

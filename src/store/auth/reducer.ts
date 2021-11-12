@@ -4,8 +4,14 @@ import {
 } from "./types";
 import './actions';
 
+export type AuthState = {
+  auth: {
+      token: string;
+  }
+};
+
 const initialState = {
-    auth: {},
+    token: localStorage?.token || '',
 };
 
 export const authReducer = (state = initialState, action: actionTypes) => {

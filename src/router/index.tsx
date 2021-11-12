@@ -1,17 +1,23 @@
-import {Redirect, Route, Router, Switch} from "react-router-dom";
+import {Redirect, Route, BrowserRouter as Router, Switch} from "react-router-dom";
 import {RouterApp, routers} from "./routers";
+import {createBrowserHistory} from "history";
+
+
 
 const getFilteredRoutesByAuthorizationUser = (userIsAuth: Boolean) => routers
     .filter(({isGuard = false}) => isGuard === userIsAuth);
-const getRedirectPath = (isAuthorization: Boolean) => isAuthorization ? '/' : '/auth' ;
+const getRedirectPath = (isAuthorization: Boolean) => isAuthorization ? '/' : '/auth';
 
 export const useRoutes = (isAuthorization: Boolean = false) => {
-    const filteredRoutes = getFilteredRoutesByAuthorizationUser(isAuthorization)
-    return (<Switch>
-        {filteredRoutes.map((router: RouterApp) => <Route key={router.path} exact path={router.path}>{router.component}</Route>)}
-        <Redirect
-            to={{pathname: getRedirectPath(isAuthorization) }}
-            exact
-        />
-    </Switch>);
+    const filteredRoutes = getFilteredRoutesByAuthorizationUser(isAuthorization);
+        return (<Router>
+        <Switch>
+            {filteredRoutes.map((router: RouterApp) => <Route key={router.path} exact path={router.path}>
+                {router.component}
+            </Route>)}
+            <Redirect
+                to={{pathname: getRedirectPath(isAuthorization)}}
+                exact
+            />
+        </Switch></Router>);
 }

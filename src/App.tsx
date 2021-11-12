@@ -2,18 +2,17 @@ import React from 'react';
 import './App.css';
 import {Router} from "react-router-dom";
 import {useRoutes} from "./router";
-import { createBrowserHistory } from "history";
 import 'antd/dist/antd.css';
+import {useSelector} from "react-redux";
+import {AuthState} from "./store/auth/reducer";
 
 const App: React.FC = () => {
-  const history = createBrowserHistory();
-  const routes = useRoutes();
+    const authState = useSelector(({ auth }: AuthState) => auth);
+    const routes = useRoutes(Boolean(authState?.token));
 
-  return (
+    return (
     <div className="App">
-        <Router history={history}>
           { routes }
-        </Router>
     </div>
   );
 }

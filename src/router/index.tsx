@@ -1,6 +1,5 @@
 import {Redirect, Route, BrowserRouter as Router, Switch} from "react-router-dom";
 import {RouterApp, routers} from "./routers";
-import {createBrowserHistory} from "history";
 
 
 

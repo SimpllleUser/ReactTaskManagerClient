@@ -1,4 +1,4 @@
-import {actionTypes, ISignIn, SIGN_IN, SIGN_UP} from "./types";
+import {actionTypes, ISignIn, LOG_OUT, SIGN_IN, SIGN_UP} from "./types";
 import {authRepository, T_PARAMS_SING_IN, T_SING_IN} from "../../repositpry/auth";
 
 export const signIn = (params: T_PARAMS_SING_IN) => async (dispatch: any): Promise<any> => {
@@ -17,5 +17,12 @@ export const signUp = (params: T_PARAMS_SING_IN): actionTypes => {
     return {
         type: SIGN_UP,
         payload: params,
+    };
+}
+
+export const logOut = () => {
+    return {
+        type: LOG_OUT,
+        payload: null,
     };
 }

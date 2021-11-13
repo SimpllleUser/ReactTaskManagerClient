@@ -15,8 +15,13 @@ export interface ISignUp {
     type: typeof SIGN_UP,
     payload: T_PARAMS_SING_IN,
 }
+export interface ILogOut {
+    type: typeof LOG_OUT,
+    payload: null,
+}
 
 export const SIGN_IN = 'AUTH/SIGN_IN';
 export const SIGN_UP = 'AUTH/SIGN_UP';
+export const LOG_OUT = 'AUTH/LOG_OUT';
 
-export type actionTypes = ISignIn | ISignUp;
+export type actionTypes = ISignIn | ISignUp | ILogOut;

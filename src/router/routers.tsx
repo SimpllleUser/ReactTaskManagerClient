@@ -1,6 +1,7 @@
 import Auth from "../pages/Auth";
 import Home from "../pages/Home";
 import AuthLayout from "../layouts/AuthLayout";
+import BaseLayout from "../layouts/BaseLayout";
 
 export type RouterApp = {
     path: string;
@@ -12,7 +13,7 @@ export const routers:RouterApp[] = [
     {
         path: '/',
         isGuard: true,
-        component: <Home/>,
+        component: <BaseLayout><Home/></BaseLayout>,
     },
     {
         path: '/auth',

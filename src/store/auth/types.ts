@@ -1,10 +1,4 @@
-import {SIGN_IN_RESPONSE, T_PARAMS_SING_IN} from "../../repositpry/auth";
-
-type T_SING_IN = {
-    result: {
-        token: string;
-    };
-};
+import {SIGN_IN_RESPONSE, ParamsSingIn} from "../../repositpry/auth";
 
 export interface ISignIn {
     type: typeof SIGN_IN,
@@ -13,7 +7,7 @@ export interface ISignIn {
 
 export interface ISignUp {
     type: typeof SIGN_UP,
-    payload: T_PARAMS_SING_IN,
+    payload: ParamsSingIn,
 }
 export interface ILogOut {
     type: typeof LOG_OUT,

@@ -1,7 +1,7 @@
-import {actionTypes, ISignIn, LOG_OUT, SIGN_IN, SIGN_UP} from "./types";
-import {authRepository, T_PARAMS_SING_IN, T_SING_IN} from "../../repositpry/auth";
+import {actionTypes, LOG_OUT, SIGN_IN, SIGN_UP} from "./types";
+import {authRepository, ParamsSingIn} from "../../repositpry/auth";
 
-export const signIn = (params: T_PARAMS_SING_IN) => async (dispatch: any): Promise<any> => {
+export const signIn = (params: ParamsSingIn) => async (dispatch: any): Promise<any> => {
     try {
         const result = await authRepository.sigIn(params);
         dispatch({
@@ -13,7 +13,7 @@ export const signIn = (params: T_PARAMS_SING_IN) => async (dispatch: any): Promi
     }
 }
 
-export const signUp = (params: T_PARAMS_SING_IN): actionTypes => {
+export const signUp = (params: ParamsSingIn): actionTypes => {
     return {
         type: SIGN_UP,
         payload: params,

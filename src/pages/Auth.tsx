@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import {Form, Input, Button, Checkbox, Modal} from 'antd';
-import {useDispatch, useSelector} from "react-redux";
+import {Form, Input, Button, Modal} from 'antd';
+import {useDispatch} from "react-redux";
 import {signIn} from "../store/auth/actions";
 
 const Auth: React.FC = () => {

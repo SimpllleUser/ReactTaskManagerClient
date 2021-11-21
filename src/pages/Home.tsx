@@ -6,11 +6,9 @@ import {AuthState} from "../store/auth/reducer";
 const Home: React.FC = () => {
     const dispatch = useDispatch();
     const authState = useSelector(({ auth }: AuthState) => auth);
-    const { token } = authState;
-
     useEffect(() => {
-       if (!!token) dispatch(getMe());
-    }, []);
+       if (authState.token.length) dispatch(getMe());
+    }, [authState]);
 
 
     return(<div className='home-page'>

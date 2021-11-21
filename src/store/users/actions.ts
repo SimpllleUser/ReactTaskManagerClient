@@ -1,5 +1,6 @@
 import { GET_ME } from "./types";
 import {usersRepository} from "../../repositpry/users";
+import {logOut} from "../auth/actions";
 
 export const getMe = () => async (dispatch: any): Promise<any> => {
     try {
@@ -9,6 +10,6 @@ export const getMe = () => async (dispatch: any): Promise<any> => {
             payload: result.currentUser,
         });
     } catch (error) {
-        console.log('GET ME: ', error);
+        dispatch(logOut());
     }
 }

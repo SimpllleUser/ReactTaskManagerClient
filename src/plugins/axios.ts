@@ -1,9 +1,9 @@
 import axios from 'axios';
 
 axios.defaults.headers.common = {'Authorization': `Bearer ${localStorage.token}`}
-axios.interceptors.request.use((res) => {
+axios.interceptors.response.use((res) => {
         return res;
     },
     (error) => {
-    console.log( 'ERROR HANDLE => ', error);
+        console.log(error);
     });

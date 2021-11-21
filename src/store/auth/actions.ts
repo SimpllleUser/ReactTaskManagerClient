@@ -23,6 +23,5 @@ export const signUp = (params: ParamsSingIn): actionTypes => {
 export const logOut = () => {
     return {
         type: LOG_OUT,
-        payload: null,
     };
 }

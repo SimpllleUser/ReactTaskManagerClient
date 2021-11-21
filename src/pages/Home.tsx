@@ -1,13 +1,15 @@
 import React, { useEffect } from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {getMe} from "../store/users/actions";
-import {usersState} from "../store/users/reducer";
+import {AuthState} from "../store/auth/reducer";
 
 const Home: React.FC = () => {
     const dispatch = useDispatch();
-    // const currentUser = useSelector(({users}: { users: usersState }) => users.currentUser)
+    const authState = useSelector(({ auth }: AuthState) => auth);
+    const { token } = authState;
+
     useEffect(() => {
-        dispatch(getMe());
+       if (!!token) dispatch(getMe());
     }, []);
 
 

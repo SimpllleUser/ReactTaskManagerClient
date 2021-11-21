@@ -5,8 +5,8 @@ import { authReducer } from './auth/reducer';
 import { usersReducer } from "./users/reducer";
 
 const rootReducer = combineReducers({
-    auth: authReducer,
     users: usersReducer,
+    auth: authReducer,
 });
 
 export default function configureStore() {

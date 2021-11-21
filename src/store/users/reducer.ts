@@ -1,6 +1,5 @@
 import {actionTypes, GET_ME} from "./types";
 import './actions';
-import {User} from "../../interfaces";
 
 export type usersState = {
     users: [],

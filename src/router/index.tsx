@@ -2,7 +2,6 @@ import {Redirect, Route, BrowserRouter as Router, Switch} from "react-router-dom
 import {RouterApp, routers} from "./routers";
 
 
-
 const getFilteredRoutesByAuthorizationUser = (userIsAuth: Boolean) => routers
     .filter(({isGuard = false}) => isGuard === userIsAuth);
 const getRedirectPath = (isAuthorization: Boolean) => isAuthorization ? '/' : '/auth';

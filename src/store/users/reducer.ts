@@ -1,9 +1,10 @@
 import {actionTypes, GET_ME} from "./types";
 import './actions';
+import {User} from "../../interfaces";
 
 export type usersState = {
-    users: [],
-    currentUser: any;
+    users: [];
+    currentUser: User | {};
 };
 
 const initialState: usersState = {

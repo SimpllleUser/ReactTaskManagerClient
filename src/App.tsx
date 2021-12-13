@@ -13,6 +13,7 @@ const App: React.FC = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        console.log(authState?.token);
         if (!authState?.token) return;
         dispatch(getMe());
     }, [authState]);

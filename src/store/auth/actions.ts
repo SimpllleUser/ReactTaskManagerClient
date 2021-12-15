@@ -1,5 +1,5 @@
 import {actionTypes, LOG_OUT, SIGN_IN, SIGN_UP} from "./types";
-import {authRepository, ParamsSingIn} from "../../repositpry/auth";
+import {authRepository, ParamsSingIn} from "../../repository/auth";
 
 export const signIn = (params: ParamsSingIn) => async (dispatch: any): Promise<any> => {
     try {

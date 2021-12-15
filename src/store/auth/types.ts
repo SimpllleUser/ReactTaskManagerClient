@@ -1,4 +1,4 @@
-import {SIGN_IN_RESPONSE, ParamsSingIn} from "../../repositpry/auth";
+import {SIGN_IN_RESPONSE, ParamsSingIn} from "../../repository/auth";
 
 export interface ISignIn {
     type: typeof SIGN_IN,

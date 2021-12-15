@@ -1,21 +1,22 @@
-import {actionTypes, GET_PROJECTS} from "./types";
+import {actionTypes, GET_PROJECTS, CREATE_PROJECT} from "./types";
 import './actions';
 import {Project} from "../../interfaces";
 
-export interface usersState {
+export interface projectState {
     projects: [],
-    currentUser: Project | null;
 };
 
-const initialState: usersState = {
-    projects: [],
-    currentUser: null,
+const initialState: projectState = {
+    projects: [] ,
 };
 
-export const usersReducer = (state = initialState, action: actionTypes) => {
+export const projectsReducer = (state = initialState, action: actionTypes) => {
     switch (action.type) {
         case GET_PROJECTS:
             return {...state, projects: action.payload};
+        case CREATE_PROJECT:
+            console.log( [action.payload, ...state.projects]);
+            return {...state, projects: [action.payload, ...state.projects]};
         default:
             return state;
     }

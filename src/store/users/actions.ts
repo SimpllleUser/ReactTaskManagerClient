@@ -1,5 +1,5 @@
 import { GET_ME } from "./types";
-import {usersRepository} from "../../repositpry/users";
+import {usersRepository} from "../../repository/users";
 import {logOut} from "../auth/actions";
 
 export const getMe = () => async (dispatch: any): Promise<any> => {

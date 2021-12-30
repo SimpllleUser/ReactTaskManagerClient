@@ -14,8 +14,8 @@ export type CreatProjectRes = {
 };
 
 export class projectRepository {
-    static async getAll() {
-        const {data} = await axios.get(`${url}/me`);
+    static async getAll(userId: number) {
+        const {data} = await axios.get(`${url}/author/${userId}`);
         const {result}: resProjects = data;
         return result;
     }

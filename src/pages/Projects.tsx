@@ -1,28 +1,35 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 
-// import {getMe} from '../store/users/actions';
-// import {AuthContext} from "../context/AuthContext";
-// import {AuthState} from "../store/auth/reducer";
-import {usersState} from "../store/users/reducer";
-import {Button} from "antd";
+import {Button, Col, Row} from "antd";
 import ProjectForm from "../components/Project/ProjectForm";
-import {User} from "../interfaces";
+import {Project, User} from "../interfaces";
+import {getProjects} from "../store/projects/actions";
+import ProjectCard from "../components/Project/ProjectCard";
 
-const Projects: React.FC = ({ ...value }): any => {
+const Projects: React.FC = ({...value}): any => {
+    const dispatch = useDispatch();
 
     const currentUser: User = useSelector((state: any) => state.users).currentUser;
-    const authorId = currentUser.id;
-    const isModalVisible = true;
-    // useEffect(() => {
-    //     if (!userState) return;
-    //     dispatch(getMe());
-    // }, [authState]);
+    const projects: [Project] = useSelector((state: any) => state.projects).projects;
+    const [isModalVisible, setIsModalVisible] = useState(false);
 
-    return(<div className='home-page'>
-        <h1>Projects page<Button type="primary">Create</Button></h1>
-        <ProjectForm isModalVisible={isModalVisible} authorId={authorId} />
-    </div> )
+    useEffect(() => {
+        if (!currentUser?.id) return;
+        dispatch(getProjects(currentUser.id));
+    }, [currentUser]);
+
+    const projectList = projects.map((project: Project) => <Col span={8} style={{marginBottom: '10px'}}
+                                                                key={`project-id-${project.id}`}><ProjectCard
+        project={project}/></Col>)
+
+    return (<div className='home-page'>
+        <div style={{marginBottom: '10px'}}><h1>Projects page</h1>
+            <Button type="primary" onClick={() => setIsModalVisible(true)}>Create</Button>
+        </div>
+        <Row gutter={16}> {projectList}</Row>
+        <ProjectForm isModalVisible={isModalVisible} authorId={currentUser.id} setVisibleModal={setIsModalVisible}/>
+    </div>)
 };
 
 export default Projects;

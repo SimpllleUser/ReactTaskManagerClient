@@ -4,7 +4,7 @@ import TextArea from "antd/es/input/TextArea";
 import {useDispatch} from "react-redux";
 import {createProject} from "../../store/projects/actions";
 
-const ProjectForm: React.FC<any> = ({isModalVisible, authorId}: { isModalVisible: boolean, authorId: number }) => {
+const ProjectForm: React.FC<any> = ({isModalVisible, authorId, setVisibleModal}: { isModalVisible: boolean, authorId: number, setVisibleModal: any }) => {
     const dispatch = useDispatch();
 
     const title = 'Project form'
@@ -15,12 +15,8 @@ const ProjectForm: React.FC<any> = ({isModalVisible, authorId}: { isModalVisible
     };
     const [projectFormModel, setProjectFormModel] = useState({...projectFormModelBaseState});
     const resetProjectFormModelBaseState = () => setProjectFormModel({...projectFormModel, title: '', description: ''});
-    const isValidForm = (): boolean => Object.values(projectFormModel).every((value) => `${value}`.trim().length)
-
-    useEffect(() => {
-        if (!authorId) return;
-        setProjectFormModel({ ...projectFormModelBaseState, authorId });
-    }, [authorId]);
+    const isValidForm = (): boolean => Object.values(projectFormModel).every((value) => `${value}`.trim().length);
+    const closeModal = () => setVisibleModal(false);
 
     useEffect(() => {
         if (!authorId) return;
@@ -30,15 +26,21 @@ const ProjectForm: React.FC<any> = ({isModalVisible, authorId}: { isModalVisible
     const createProjectHandler = (): string => {
         if (!isValidForm()) return 'NOT VALID FORM'
         dispatch(createProject(projectFormModel));
+        closeModal();
         return 'SEND PROJECT PARAMS'
     }
+
+
     return (
-        <Modal title={title} visible={isModalVisible}
+        <Modal title={title} visible={isModalVisible} onCancel={closeModal}
                footer={[
                    <Button key="create" type="primary" onClick={createProjectHandler}>
                        Create
                    </Button>,
-                   <Button key="cancel" danger type="primary" onClick={resetProjectFormModelBaseState}>
+                   <Button key="cancel" danger type="primary" onClick={() => {
+                       resetProjectFormModelBaseState();
+                       closeModal();
+                   }}>
                        Cancel
                    </Button>,
 

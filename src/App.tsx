@@ -13,9 +13,10 @@ const App: React.FC = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (!authState?.token) return;
+        // if (!authState?.token) return;
+        console.log("INIT");
         dispatch(getMe());
-    }, [authState]);
+    }, []);
 
     const routes = useRoutes(Boolean(authState?.token));
 

@@ -2,12 +2,13 @@ import { GET_PROJECTS, CREATE_PROJECT } from "./types";
 import {CreatProjectRes, projectRepository} from "../../repository/projects";
 import {logOut} from "../auth/actions";
 
-export const getProjects = () => async (dispatch: any): Promise<any> => {
+export const getProjects = (authorId: number) => async (dispatch: any): Promise<any> => {
     try {
-        const result = await projectRepository.getAll();
+        const result = await projectRepository.getAll(authorId);
+        console.log(result);
         dispatch({
             type: GET_PROJECTS,
-            payload: result.projects,
+            payload: result,
         });
     } catch (error) {
        // dispatch(logOut());
@@ -21,7 +22,6 @@ export const createProject = (params:CreatProjectRes) => async (dispatch: any): 
             payload: result,
         });
     } catch (error) {
-        console.log({ error });
-        // dispatch(logOut());
+        console.log('createProject', error);
     }
 }

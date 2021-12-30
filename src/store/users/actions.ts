@@ -10,6 +10,6 @@ export const getMe = () => async (dispatch: any): Promise<any> => {
             payload: result.currentUser,
         });
     } catch (error) {
-       // dispatch(logOut());
+       dispatch(logOut());
     }
 }

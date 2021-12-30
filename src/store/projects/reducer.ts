@@ -13,9 +13,9 @@ const initialState: projectState = {
 export const projectsReducer = (state = initialState, action: actionTypes) => {
     switch (action.type) {
         case GET_PROJECTS:
+            console.log(action.payload);
             return {...state, projects: action.payload};
         case CREATE_PROJECT:
-            console.log( [action.payload, ...state.projects]);
             return {...state, projects: [action.payload, ...state.projects]};
         default:
             return state;

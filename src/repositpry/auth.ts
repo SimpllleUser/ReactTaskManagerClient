@@ -9,7 +9,7 @@ export type T_SING_IN = {
 };
 
 export type T_PARAMS_SING_IN = {
-    email: string;
+    login: string;
     password: string;
 }
 
@@ -17,8 +17,8 @@ export type SIGN_IN_RESPONSE = { token: string };
 
 export class authRepository {
 
-    static async sigIn({email, password}: T_PARAMS_SING_IN): Promise<SIGN_IN_RESPONSE> {
-        const {data}: any = await axios.post(`${url}/auth/login`, {email, password});
+    static async sigIn({login, password}: T_PARAMS_SING_IN): Promise<SIGN_IN_RESPONSE> {
+        const {data}: any = await axios.post(`${url}/auth/login`, {login, password});
         return data?.result;
     }
     //

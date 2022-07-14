@@ -6,7 +6,7 @@ import {signIn} from "../store/auth/actions";
 const Auth: React.FC = () => {
     const dispatch = useDispatch();
     const [auth, setAuth] = useState({
-        email: '',
+        login: '',
         password: '',
     });
     const userSignIn = () => {
@@ -24,9 +24,9 @@ const Auth: React.FC = () => {
                     name="username"
                     rules={[{required: true, message: 'Please input your username!'}]}
                 >
-                    <Input value={auth.email}
+                    <Input value={auth.login}
                            onChange={({target}) => {
-                               setAuth({...auth, email: target.value});
+                               setAuth({...auth, login: target.value});
                            }}/>
                 </Form.Item>
 

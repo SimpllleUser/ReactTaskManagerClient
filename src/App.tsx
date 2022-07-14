@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-import {Router} from "react-router-dom";
 import {useRoutes} from "./router";
 import 'antd/dist/antd.css';
 import {useSelector} from "react-redux";

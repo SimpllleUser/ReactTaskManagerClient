@@ -40,3 +40,5 @@ export interface Task {
     priority: OptionGlobal;
     executor: User;
 }
+
+export type UserAuthentificated = User & { token: number }; 

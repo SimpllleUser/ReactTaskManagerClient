@@ -1,19 +1,12 @@
-import {SIGN_IN_RESPONSE, T_PARAMS_SING_IN} from "../../repositpry/auth";
-
-type T_SING_IN = {
-    result: {
-        token: string;
-    };
-};
-
+import { UserAuthentificated } from "../../types";
 export interface ISignIn {
     type: typeof SIGN_IN,
-    payload: SIGN_IN_RESPONSE,
+    payload: UserAuthentificated,
 }
 
 export interface ISignUp {
     type: typeof SIGN_UP,
-    payload: T_PARAMS_SING_IN,
+    payload: UserAuthentificated,
 }
 export interface ILogOut {
     type: typeof LOG_OUT,

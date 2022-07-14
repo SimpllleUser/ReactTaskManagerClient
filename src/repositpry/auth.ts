@@ -1,6 +1,7 @@
 import axios from "axios";
+import { User, UserAuthentificated } from "../types";
 
-const url = 'http://localhost:7000'
+const url = 'http://localhost:7000/auth'
 
 export type T_SING_IN = {
     result: {
@@ -13,17 +14,24 @@ export type T_PARAMS_SING_IN = {
     password: string;
 }
 
+export type SignUpParams = {
+    login: string;
+    password: string;
+    name: string;
+}
+
 export type SIGN_IN_RESPONSE = { token: string };
+export type ResponseResult<T> = { data: { result: T } }
 
 export class authRepository {
 
-    static async sigIn({login, password}: T_PARAMS_SING_IN): Promise<SIGN_IN_RESPONSE> {
-        const {data}: any = await axios.post(`${url}/auth/login`, {login, password});
+    static async sigIn({ login, password }: T_PARAMS_SING_IN): Promise<UserAuthentificated> {
+        const { data }: ResponseResult<UserAuthentificated> = await axios.post(`${url}/login`, { login, password });
         return data?.result;
     }
-    //
-    // static async signUp({email, password}: T_PARAMS_SING_IN) {
-    //     const {result}: T_SING_IN = await axios.post(`${url}/login`, {email, password});
-    //     return result;
-    // }
+
+    static async signUp(params: SignUpParams): Promise<UserAuthentificated> {
+        const { data }: ResponseResult<UserAuthentificated> = await axios.post(`${url}/registration`, params);
+        return data.result;
+    }
 }

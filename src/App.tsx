@@ -3,11 +3,11 @@ import './App.css';
 import {useRoutes} from "./router";
 import 'antd/dist/antd.css';
 import {useSelector} from "react-redux";
-import {AuthState} from "./store/auth/reducer";
+import {AuthRootState} from "./store/auth/reducer";
 
 const App: React.FC = () => {
-    const authState = useSelector(({ auth }: AuthState) => auth);
-    const routes = useRoutes(Boolean(authState?.token));
+    const userActive = useSelector((state: AuthRootState) => state.auth.userActive);
+    const routes = useRoutes(Boolean(userActive?.token));
 
     return (
     <div className="App">

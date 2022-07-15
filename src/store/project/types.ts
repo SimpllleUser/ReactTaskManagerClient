@@ -9,6 +9,10 @@ export interface setProject {
     payload: Project
 }
 
+export interface addCreatedProject {
+    type: typeof ADD_CRAETED_PROJECT,
+    payload: Project,
+}
 export interface setStatuses {
     type: typeof SET_STATUSES,
     payload: Option[],
@@ -17,5 +21,10 @@ export interface setStatuses {
 export const SET_PROJECT_BY_AUHTOR = 'PROJECTS/SET_PROJECT_BY_AUHTOR';
 export const SET_PROJECT = 'PROJECTS/SET_PROJECT';
 export const SET_STATUSES = 'PROJECTS/SET_STATUSES';
+export const ADD_CRAETED_PROJECT = 'PROJECTS/ADD_CRAETED_PROJECT';
 
-export type actionTypes = setProjectsByAuthor | setProject | setStatuses;
+export type actionTypes =
+    setProjectsByAuthor |
+    setProject |
+    setStatuses |
+    addCreatedProject;

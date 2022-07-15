@@ -14,6 +14,11 @@ export interface Project {
     team: User[];
     tasks: Task[];
 }
+export interface ProjectCreateParams {
+    title: string;
+    description: string;
+    authorId: number;
+}
 
 export interface User {
     id: number;

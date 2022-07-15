@@ -1,4 +1,4 @@
-import { Button, Modal } from 'antd';
+import { Button, Col, Modal, Row } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ProjectCard from '../components/Project/ProjectCard';
@@ -28,8 +28,19 @@ const Home: React.FC = () => {
     }, []);
 
     const projects = useSelector((state: ProjectRootState) => state.project.projects);
-    return (<div className='home-page'>
-        <h1>Home page</h1>
+    return (<div className='home-page' style={{ padding: '12px' }}>
+        <div style={{ padding: '12px' }}>
+        <Row justify="space-around" align="middle">
+            <Col span={6}>
+                <div>Home page</div>
+            </Col>
+            <Col span={6}>
+                <Button type="primary" onClick={showModal}>
+                    Create project
+                </Button>
+            </Col>
+        </Row>
+        </div>
         <div style={{
             display: 'flex',
             justifyContent: 'flex-start',
@@ -39,20 +50,16 @@ const Home: React.FC = () => {
                 return <ProjectCard key={project.id} project={project} />;
             })}
         </div>
-        <Button type="primary" onClick={showModal}>
-            Create project
-        </Button>
+
         <Modal
             title="Projetc form"
             visible={isModalVisible}
             onOk={handleOk}
             onCancel={handleCancel}
-            okText='Yes'
-            okType='primary'
-            cancelText='No'
-    >
-        <ProjectForm project={null} />
-    </Modal>
+            footer={null}
+        >
+            <ProjectForm project={null} sendFormData={handleCancel} />
+        </Modal>
     </div >);
 }
 

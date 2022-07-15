@@ -19,7 +19,7 @@ const initialState = {
 export const projectReducer = (state = initialState, action: actionTypes) => {
     switch (action.type) {
         case SET_PROJECT_BY_AUHTOR:
-            return { ...state, projects: [...state.projects, ...action.payload] };
+            return { ...state, projects: action.payload };
         case SET_PROJECT:
             return {
                 ...state, projectsDetail: {

@@ -13,6 +13,10 @@ export interface addCreatedProject {
     type: typeof ADD_CRAETED_PROJECT,
     payload: Project,
 }
+export interface setUpdatedProject {
+    type: typeof SET_UPDATED_PROJECT,
+    payload: Project,
+}
 export interface setStatuses {
     type: typeof SET_STATUSES,
     payload: Option[],
@@ -22,9 +26,11 @@ export const SET_PROJECT_BY_AUHTOR = 'PROJECTS/SET_PROJECT_BY_AUHTOR';
 export const SET_PROJECT = 'PROJECTS/SET_PROJECT';
 export const SET_STATUSES = 'PROJECTS/SET_STATUSES';
 export const ADD_CRAETED_PROJECT = 'PROJECTS/ADD_CRAETED_PROJECT';
+export const SET_UPDATED_PROJECT = 'PROJECTS/SET_UPDATED_PROJECT';
 
 export type actionTypes =
     setProjectsByAuthor |
     setProject |
     setStatuses |
-    addCreatedProject;
+    addCreatedProject |
+    setUpdatedProject;

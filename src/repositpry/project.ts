@@ -17,8 +17,8 @@ export class projectRepository {
         const {data}: any = await axios.post(`${url}`, createProjectParams);
         return data?.result;
     }
-    static async update(project: Project): Promise<Option[]> {
-        const {data}: any = await axios.post(`${url}`, project);
+    static async update(project: Project): Promise<Project> {
+        const {data}: any = await axios.patch(`${url}/${project.id}`, project);
         return data?.result;
     }
     static async getStatuses(): Promise<Option[]> {

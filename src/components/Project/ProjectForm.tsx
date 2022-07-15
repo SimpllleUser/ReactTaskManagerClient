@@ -9,24 +9,29 @@ import {
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AuthRootState } from '../../store/auth/reducer';
-import { createProject } from '../../store/project/actions';
+import { createProject, updatedProject } from '../../store/project/actions';
 import { Project, ProjectCreateParams } from '../../types';
 const { TextArea } = Input;
 
 const ProjectForm: React.FC<{ project: Project | null, sendFormData: () => void }> = ({
   project,
-  sendFormData }) => {
+  sendFormData,
+}) => {
   const dispatch = useDispatch();
-  const authorId: number = useSelector((store: AuthRootState) => store.auth.userActive?.id);
-  const projectDefault: ProjectCreateParams = { ...project, authorId, title: '', description: '' };
+  const userActive = useSelector((store: AuthRootState) => store.auth.userActive);
+  const authorId = project?.authorId || userActive.id;
+  const projectDefault: ProjectCreateParams | null = project;
+  const isEditMode = Boolean(project?.id);
   const [form]: [FormInstance<any>] = Form.useForm();
   form.setFieldsValue(projectDefault)
   const onCreateProject = (values: any) => {
-    dispatch(createProject({ ...values, authorId }));
+    const params = { authorId, ...project, ...values };
+    const action = isEditMode ? updatedProject : createProject;
+    dispatch(action(params));
     sendFormData();
   };
 
-  return (
+  return (<>
     <Form
       form={form}
       layout="horizontal"
@@ -68,6 +73,7 @@ const ProjectForm: React.FC<{ project: Project | null, sendFormData: () => void 
         </Row>
       </Form.Item>
     </Form>
+  </>
   );
 };
 

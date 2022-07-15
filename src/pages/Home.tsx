@@ -15,10 +15,14 @@ const Home: React.FC = () => {
     const projects = useSelector((state: ProjectRootState) => state.project.projects);
     return (<div className='home-page'>
         <h1>Home page</h1>
-        <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
-        { projects.map((project) => {
-            return <ProjectCard key={project.id} project={project} />;
-        }) }
+        <div style={{
+            display: 'flex',
+            justifyContent: 'flex-start',
+            flexWrap: 'wrap'
+        }}>
+            {projects.map((project) => {
+                return <ProjectCard key={project.id} project={project} />;
+            })}
         </div>
     </div>);
 }

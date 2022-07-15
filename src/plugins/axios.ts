@@ -1,4 +1,7 @@
 import axios from 'axios';
+import { UserAuthentificated } from '../types';
+const activeUser: UserAuthentificated = JSON.parse(localStorage?.getItem('userActive') || '{}');
+axios.defaults.headers.common = {'Authorization': `Bearer ${activeUser.token}`}
 
 axios.interceptors.request.use((res) => {
         return res;

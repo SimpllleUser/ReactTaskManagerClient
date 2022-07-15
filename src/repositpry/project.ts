@@ -5,8 +5,12 @@ const url = 'http://localhost:7000/project'
 
 
 export class projectRepository {
-    static async getAllByAuthorId(authorId: number): Promise<Project> {
+    static async getAllByAuthorId(authorId: number): Promise<Project[]> {
         const {data}: any = await axios.get(`${url}/author/${authorId}`);
+        return data?.result;
+    }
+    static async findOneById(projectId: number): Promise<Project> {
+        const {data}: any = await axios.get(`${url}/${projectId}`);
         return data?.result;
     }
 }

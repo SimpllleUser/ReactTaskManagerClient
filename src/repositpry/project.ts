@@ -21,6 +21,10 @@ export class projectRepository {
         const {data}: any = await axios.patch(`${url}/${project.id}`, project);
         return data?.result;
     }
+    static async delete(id: number): Promise<any> {
+        const {data}: any = await axios.delete(`${url}/${id}`);
+        return data?.result;
+    }
     static async getStatuses(): Promise<Option[]> {
         const {data}: any = await axios.get(`${url}/statuses/all`);
         return data?.result;

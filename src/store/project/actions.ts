@@ -1,6 +1,6 @@
 import { projectRepository } from "../../repositpry/project";
 import { Project, ProjectCreateParams } from "../../types";
-import { ADD_CRAETED_PROJECT, SET_PROJECT, SET_PROJECT_BY_AUHTOR, SET_STATUSES, SET_UPDATED_PROJECT } from "./types";
+import { ADD_CRAETED_PROJECT, DELETE_PROJECT, SET_PROJECT, SET_PROJECT_BY_AUHTOR, SET_STATUSES } from "./types";
 
 export const getProjectsByAuthor = (userId: number) => async (dispatch: any): Promise<any> => {
     try {
@@ -45,6 +45,19 @@ export const updatedProject = (
         dispatch({
             type: SET_PROJECT,
             payload: result,
+        });
+    } catch (error) {
+        console.log('ERROR => ', error);
+    }
+}
+export const deleteProject = (
+    id: number,
+) => async (dispatch: any): Promise<any> => {
+    try {
+        await projectRepository.delete(id);
+        dispatch({
+            type: DELETE_PROJECT,
+            payload: id,
         });
     } catch (error) {
         console.log('ERROR => ', error);

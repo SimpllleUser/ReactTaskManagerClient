@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import ProjectCard from '../components/Project/ProjectCard';
 import ProjectForm from '../components/Project/ProjectForm';
 import { AuthRootState } from '../store/auth/reducer';
-import { getProjectsByAuthor } from '../store/project/actions';
+import { getProjectsByAuthor, getProjectStatuses } from '../store/project/actions';
 import { ProjectRootState } from '../store/project/reducer';
 
 const Home: React.FC = () => {

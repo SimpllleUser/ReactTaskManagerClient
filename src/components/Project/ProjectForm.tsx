@@ -1,18 +1,20 @@
 import {
-  Button,
-
   Form,
   Input,
   Select,
 
 } from 'antd';
 import React, { useState } from 'react';
-import { Project } from '../../types';
+import { useDispatch, useSelector } from 'react-redux';
+import { getProjectStatuses } from '../../store/project/actions';
+import { ProjectRootState } from '../../store/project/reducer';
+import { Option, Project } from '../../types';
 const { TextArea } = Input;
 
 type SizeType = Parameters<typeof Form>[0]['size'];
 
 const ProjectForm: React.FC<{ project: Project | null }> = () => {
+  const dispatch = useDispatch();
   const [componentSize, setComponentSize] = useState<SizeType | 'default'>('default');
   const onFormLayoutChange = ({ size }: { size: SizeType }) => {
     setComponentSize(size);
@@ -34,6 +36,9 @@ const ProjectForm: React.FC<{ project: Project | null }> = () => {
     ...projectForm,
     [filedName]: value
   })
+
+  const statuses = useSelector((store: ProjectRootState) => store.project.statuses || [])
+  const onActiveSelectStatus = () => dispatch(getProjectStatuses());
 
   return (
     <Form
@@ -57,8 +62,16 @@ const ProjectForm: React.FC<{ project: Project | null }> = () => {
         />
       </Form.Item>
       <Form.Item label="Status">
-        <Select onChange={onUpdateSelect('status')}>
-          <Select.Option value='Demo'>Demo</Select.Option>
+        <Select
+          onChange={onUpdateSelect('status')}
+          onFocus={onActiveSelectStatus}
+        >
+          {statuses.map(
+            (status: Option) => <Select.Option
+              key={status.id}
+              value={status.id
+              }>{status.name}</Select.Option>,
+          )}
         </Select>
       </Form.Item>
     </Form>

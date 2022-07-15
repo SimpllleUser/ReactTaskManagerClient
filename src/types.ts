@@ -42,3 +42,8 @@ export interface Task {
 }
 
 export type UserAuthentificated = User & { token: number }; 
+export interface Option {
+    id: number;
+    name: string;
+    value: number;
+};

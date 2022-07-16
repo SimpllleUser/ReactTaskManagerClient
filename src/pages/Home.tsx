@@ -30,16 +30,16 @@ const Home: React.FC = () => {
     const projects = useSelector((state: ProjectRootState) => state.project.projects);
     return (<div className='home-page' style={{ padding: '12px' }}>
         <div style={{ padding: '12px' }}>
-        <Row justify="space-around" align="middle">
-            <Col span={6}>
-                <div>Home page</div>
-            </Col>
-            <Col span={6}>
-                <Button type="primary" onClick={showModal}>
-                    Create project
-                </Button>
-            </Col>
-        </Row>
+            <Row justify="space-around" align="middle">
+                <Col span={6}>
+                    <div>Home page</div>
+                </Col>
+                <Col span={6}>
+                    <Button type="primary" onClick={showModal}>
+                        Create project
+                    </Button>
+                </Col>
+            </Row>
         </div>
         <div style={{
             display: 'flex',
@@ -60,7 +60,7 @@ const Home: React.FC = () => {
         >
             <ProjectForm project={null} sendFormData={handleCancel} />
         </Modal>
-    </div >);
+    </div>);
 }
 
 export default Home;

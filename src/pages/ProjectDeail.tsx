@@ -11,7 +11,8 @@ import { ProjectRootState } from '../store/project/reducer';
 const ProjectDetail: React.FC = () => {
     const { id }: { id: string } = useParams();
     const dispatch = useDispatch();
-    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [projectModalForm, setProjectModalForm] = useState(false);
+    // const [tasktModalForm, tasktModalForm] = useState(false);
     useEffect(() => {
         dispatch(getProjectById(Number(id)))
     }, []);
@@ -24,18 +25,6 @@ const ProjectDetail: React.FC = () => {
         status = { id: 9999, name: '' },
         tasks = [], } = project;
 
-    const showModal = () => {
-        setIsModalVisible(true);
-    };
-
-    const handleOk = () => {
-        setIsModalVisible(false);
-    };
-
-    const handleCancel = () => {
-        setIsModalVisible(false);
-    };
-
     return (<>
 
         <Row justify="space-around" align="middle" style={{ padding: '12px 0px' }}>
@@ -43,11 +32,11 @@ const ProjectDetail: React.FC = () => {
             <Col span={4}>{description}</Col>
             <Col span={4}>{status?.name}</Col>
             <Col span={4}>
-                <Button 
-                type="primary"
-                 onClick={showModal}
-                  icon={<EditOutlined
-                    key="edit"
+                <Button
+                    type="primary"
+                    onClick={() => setProjectModalForm(true)}
+                    icon={<EditOutlined
+                        key="edit"
                     />} >Edit</Button>
                 <Button type="primary" icon={<PlusOutlined />} >Task</Button>
             </Col>
@@ -55,14 +44,14 @@ const ProjectDetail: React.FC = () => {
         <Row>
             <Modal
                 title="Projetc form"
-                visible={isModalVisible}
-                onOk={handleOk}
-                onCancel={handleCancel}
+                visible={projectModalForm}
+                onOk={() => setProjectModalForm(false)}
+                onCancel={() => setProjectModalForm(false)}
                 footer={null}
             >
                 <ProjectForm
                     project={project}
-                    sendFormData={handleCancel} />
+                    sendFormData={ () => setProjectModalForm(false)} />
             </Modal>
         </Row>
         <TaskTable tasks={tasks} />

@@ -7,33 +7,43 @@ import {
   Row,
   Select,
 } from 'antd';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AuthRootState } from '../../store/auth/reducer';
 import { createProject, getProjectStatuses, updatedProject } from '../../store/project/actions';
 import { ProjectRootState } from '../../store/project/reducer';
-import { Project, ProjectCreateParams, Option } from '../../types';
+import { ProjectBase, ProjectCreateParams, Option } from '../../types';
 const { TextArea } = Input;
 
-const ProjectForm: React.FC<{ project: Project | null, sendFormData: () => void }> = ({
+const ProjectForm: React.FC<{ project: ProjectBase | null, sendFormData: () => void }> = ({
   project,
   sendFormData,
 }) => {
   const dispatch = useDispatch();
   const userActive = useSelector((store: AuthRootState) => store.auth.userActive);
   const authorId = project?.authorId || userActive.id;
-  const projectDefault: ProjectCreateParams | null = project;
+  const projectDefault: ProjectCreateParams | null = {
+    title: project?.title || '',
+    description: project?.description || '',
+    statusId: project?.statusId || 999,
+    authorId: project?.authorId || 999
+  };
   const isEditMode = Boolean(project?.id);
   const [form]: [FormInstance<any>] = Form.useForm();
-  const statuses = useSelector((store: ProjectRootState) => store.project.statuses || []);
+  const statuses = useSelector((store: ProjectRootState) => store.project.statuses);
   const onActiveSelectStatus = () => !statuses?.length && dispatch(getProjectStatuses());
-  form.setFieldsValue(projectDefault);
+  const statusOptins = !statuses.length ? [project?.status] : statuses;
+
+  form.setFieldsValue({ status: project?.status });
   const onCreateProject = (values: any) => {
     const params = { authorId, ...project, ...values };
     const action = isEditMode ? updatedProject : createProject;
     dispatch(action(params));
     sendFormData();
   };
+  useEffect(() => {
+    form.setFieldsValue(projectDefault);
+  })
 
   return (<>
     <Form
@@ -74,9 +84,9 @@ const ProjectForm: React.FC<{ project: Project | null, sendFormData: () => void 
         <Select
           onFocus={onActiveSelectStatus}
         >
-          {statuses.map(
-            (status: Option) => <Select.Option
-              key={status.id}
+          {statusOptins.map(
+            (status: any) => <Select.Option
+              key={`${status.id}-${status.name}`}
               value={status.id
               }>{status.name}</Select.Option>,
           )}

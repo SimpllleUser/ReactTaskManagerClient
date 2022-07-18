@@ -22,6 +22,7 @@ const ProjectDetail: React.FC = () => {
 
     const { title = '',
         description = '',
+        status = { id: 9999, name: '' },
         tasks = [], } = project;
 
     const showModal = () => {
@@ -45,6 +46,9 @@ const ProjectDetail: React.FC = () => {
             ]
         }>
             <Meta title={title} description={description} />
+            <div>
+                status: <b>{status?.name}</b>
+            </div>
         </Card>
         <Row>
             <Modal

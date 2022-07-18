@@ -1,21 +1,21 @@
-import { Project, Option } from "../../types";
+import { ProjectBase, Option, ProjectDetail } from "../../types";
 
 export interface setProjectsByAuthor {
     type: typeof SET_PROJECT_BY_AUHTOR,
-    payload: Project[],
+    payload: ProjectBase[],
 }
 export interface setProject {
     type: typeof SET_PROJECT,
-    payload: Project
+    payload: ProjectDetail
 }
 
 export interface addCreatedProject {
     type: typeof ADD_CRAETED_PROJECT,
-    payload: Project,
+    payload: ProjectBase,
 }
 export interface setUpdatedProject {
     type: typeof SET_UPDATED_PROJECT,
-    payload: Project,
+    payload: ProjectBase,
 }
 export interface deleteProject {
     type: typeof DELETE_PROJECT,

@@ -3,13 +3,13 @@ import { Card } from 'antd';
 import {
     DeleteOutlined
 } from '@ant-design/icons';
-import { Project } from '../../types';
+import { ProjectBase } from '../../types';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { deleteProject } from '../../store/project/actions';
 const { Meta } = Card;
 
-const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
+const ProjectCard: React.FC<{ project: ProjectBase }> = ({ project }) => {
     const dispatch = useDispatch();
     return (<Card
         hoverable

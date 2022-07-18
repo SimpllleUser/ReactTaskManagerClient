@@ -1,5 +1,5 @@
 import { projectRepository } from "../../repositpry/project";
-import { Project, ProjectCreateParams } from "../../types";
+import { ProjectBase, ProjectCreateParams, ProjectDetail } from "../../types";
 import { ADD_CRAETED_PROJECT, DELETE_PROJECT, SET_PROJECT, SET_PROJECT_BY_AUHTOR, SET_STATUSES } from "./types";
 
 export const getProjectsByAuthor = (userId: number) => async (dispatch: any): Promise<any> => {
@@ -38,7 +38,7 @@ export const createProject = (
     }
 }
 export const updatedProject = (
-    projectUpdateParams: Project,
+    projectUpdateParams: ProjectDetail,
 ) => async (dispatch: any): Promise<any> => {
     try {
         const result = await projectRepository.update(projectUpdateParams);

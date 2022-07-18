@@ -6,11 +6,11 @@ import {
     SET_PROJECT_BY_AUHTOR,
     SET_STATUSES,
 } from "./types";
-import { Option, Project } from "../../types";
+import { Option, ProjectBase, ProjectDetail } from "../../types";
 
 export type ProjectState = {
-    projects: Project[];
-    projectsDetail: Project[];
+    projects: ProjectBase[];
+    projectsDetail: ProjectDetail[];
     statuses: Option[];
 };
 
@@ -42,7 +42,7 @@ export const projectReducer = (state = initialState, action: actionTypes) => {
             return {
                 ...state,
                 projects: state.projects.filter(
-                    (project: Project) => project.id !== action.payload),
+                    (project: ProjectBase) => project.id !== action.payload),
             };
         // case SET_UPDATED_PROJECT:
         //     return {

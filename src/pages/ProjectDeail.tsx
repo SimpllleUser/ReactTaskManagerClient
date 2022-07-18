@@ -1,13 +1,12 @@
-import { Card, Modal, Row } from 'antd';
+import { Button, Col, Modal, Row } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { EditOutlined } from '@ant-design/icons';
+import { PlusOutlined } from '@ant-design/icons';
 import ProjectForm from '../components/Project/ProjectForm';
 import TaskTable from '../components/Task/TaskTable';
 import { getProjectById } from '../store/project/actions';
 import { ProjectRootState } from '../store/project/reducer';
-const { Meta } = Card;
 
 const ProjectDetail: React.FC = () => {
     const { id }: { id: string } = useParams();
@@ -38,7 +37,7 @@ const ProjectDetail: React.FC = () => {
     };
 
     return (<>
-        <Card actions={
+        {/* <Card actions={
             [
                 <EditOutlined
                     key="edit"
@@ -47,9 +46,15 @@ const ProjectDetail: React.FC = () => {
         }>
             <Meta title={title} description={description} />
             <div>
-                status: <b>{status?.name}</b>
+                {status?.name}
             </div>
-        </Card>
+        </Card> */}
+        <Row justify="space-around" align="middle" style={{ padding: '12px 0px' }}>
+            <Col span={4}><b>{title}</b></Col>
+            <Col span={4}>{description}</Col>
+            <Col span={4}>{status?.name}</Col>
+            <Col span={4}><Button  type="primary" icon={<PlusOutlined/>} >Task</Button></Col>
+        </Row>
         <Row>
             <Modal
                 title="Projetc form"

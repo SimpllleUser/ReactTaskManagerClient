@@ -61,3 +61,15 @@ export interface Option {
     name: string;
     value: number;
 };
+
+export interface TaskCreateParams {
+    title: string;
+    description: string;
+    authorId: number;
+    typeId: number;
+    priorityId: number;
+    executorId: number;
+    statusId: number;
+    projectId: number;
+}
+export type TaskUpdateParams = TaskCreateParams & { id: number };

@@ -1,6 +1,6 @@
 import { taskRepository } from "../../repositpry/task";
 import { TaskCreateParams, TaskUpdateParams } from "../../types";
-import { ADD_CRAETED_TASK, DELETE_TASK, SET_STATUSES, SET_TASK, SET_TASK_BY_PROJECT } from './types';
+import { ADD_CRAETED_TASK, DELETE_TASK, SET_PRIORITIES, SET_STATUSES, SET_TASK, SET_TASK_BY_PROJECT, SET_TYPES } from './types';
 
 export const getTasksByProjectId = (userId: number) => async (dispatch: any): Promise<any> => {
     try {
@@ -24,7 +24,7 @@ export const getTaskById = (taskId: number) => async (dispatch: any): Promise<an
         console.log('ERROR => ', error);
     }
 }
-export const createProject = (
+export const createTask = (
     taskCreateParams: TaskCreateParams,
 ) => async (dispatch: any): Promise<any> => {
     try {
@@ -37,7 +37,7 @@ export const createProject = (
         console.log('ERROR => ', error);
     }
 }
-export const updatedProject = (
+export const updatedTask = (
     taskUpdateParams: TaskUpdateParams,
 ) => async (dispatch: any): Promise<any> => {
     try {
@@ -63,11 +63,33 @@ export const deleteTask = (
         console.log('ERROR => ', error);
     }
 }
-export const getProjectStatuses = () => async (dispatch: any): Promise<any> => {
+export const getTaskStatuses = () => async (dispatch: any): Promise<any> => {
     try {
         const result = await taskRepository.getStatuses();
         dispatch({
             type: SET_STATUSES,
+            payload: result,
+        });
+    } catch (error) {
+        console.log('ERROR => ', error);
+    }
+}
+export const getTaskTypes = () => async (dispatch: any): Promise<any> => {
+    try {
+        const result = await taskRepository.getTypes();
+        dispatch({
+            type: SET_TYPES,
+            payload: result,
+        });
+    } catch (error) {
+        console.log('ERROR => ', error);
+    }
+}
+export const getTaskPriorities = () => async (dispatch: any): Promise<any> => {
+    try {
+        const result = await taskRepository.getPriorities();
+        dispatch({
+            type: SET_PRIORITIES,
             payload: result,
         });
     } catch (error) {

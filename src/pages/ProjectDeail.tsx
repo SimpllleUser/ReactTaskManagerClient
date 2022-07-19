@@ -72,6 +72,7 @@ const ProjectDetail: React.FC = () => {
                 footer={null}
             >
                 <TaskForm
+                    projectId={project.id}
                     task={null}
                     sendFormData={() => setTasktModalForm(false)} />
             </Modal>

@@ -2,7 +2,7 @@ import { Option, Task } from "../../types";
 
 export interface setTasksByProject {
     type: typeof SET_TASK_BY_PROJECT,
-    payload: Task[],
+    payload: { tasks: Task[], projectId: number; },
 }
 export interface setTask {
     type: typeof SET_TASK,

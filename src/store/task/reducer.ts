@@ -13,6 +13,7 @@ import { Option, Task } from "../../types";
 export type TasktState = {
     tasks: Task[];
     tasksDetail: Task[];
+    tasksByProject: { [key: number]: Task[] };
     statuses: Option[];
     types: Option[];
     priorities: Option[];
@@ -24,6 +25,7 @@ export type TaskRootState = {
 
 const initialState = {
     tasks: [],
+    tasksByProject: [],
     tasksDetail: [],
     statuses: [],
     types: [],
@@ -34,7 +36,12 @@ const initialState = {
 export const taskReducer = (state = initialState, action: actionTypes) => {
     switch (action.type) {
         case SET_TASK_BY_PROJECT:
-            return { ...state, tasks: action.payload };
+            return {
+                ...state, tasksByProject: {
+                    ...state.tasksByProject,
+                    [action.payload.projectId]: action.payload.tasks
+                }
+            };
         case SET_TASK:
             return {
                 ...state, tasksDetail: {
@@ -43,7 +50,13 @@ export const taskReducer = (state = initialState, action: actionTypes) => {
                 }
             };
         case ADD_CRAETED_TASK:
-            return { ...state, tasks: [...state.tasks, action.payload] };
+            const tasks = state.tasksByProject[action.payload.projectId];
+            return {
+                ...state, tasksByProject: {
+                    ...state.tasksByProject,
+                    [action.payload.projectId]: [...tasks, action.payload],
+                }
+            };
         case DELETE_TASK:
             return {
                 ...state,

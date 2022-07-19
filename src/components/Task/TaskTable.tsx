@@ -20,16 +20,26 @@ const columns = [
         key: 'description',
     },
     {
-        title: 'Date created',
-        dataIndex: 'createdAt',
-        key: 'createdAt',
+        title: 'Type',
+        dataIndex: 'type',
+        key: 'type',
+        // Type Option
+        render: (_: any, value: any) => value.type.name,
     },
     {
-        title: 'Date updated',
-        dataIndex: 'updatedAt',
-        key: 'updatedAt',
+        title: 'Status',
+        dataIndex: 'status',
+        key: 'status',
+        // Type Option
+        render: (_: any, value: any) => value.status.name,
     },
-
+    {
+        title: 'Priority',
+        dataIndex: 'priority',
+        key: 'Priority',
+        // Type Option
+        render: (_: any, value: any) => value.priority.name,
+    },
 ];
 
 const TaskTable: React.FC<{ tasks: Task[] }> = ({ tasks }) => (<>

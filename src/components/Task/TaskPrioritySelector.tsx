@@ -6,9 +6,9 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTaskPriorities } from '../../store/task/actions';
 import { TaskRootState } from '../../store/task/reducer';
-import { Option } from '../../types';
+import { OptionGlobal } from '../../types';
 
-const TaskPrioritySelector: React.FC<{ priority: Option | null, onSelectPriority: (value: number) => void }> = ({
+const TaskPrioritySelector: React.FC<{ priority: OptionGlobal | null, onSelectPriority: (value: number) => void }> = ({
     priority,
     onSelectPriority,
 }) => {

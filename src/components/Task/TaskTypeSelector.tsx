@@ -6,9 +6,9 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTaskTypes } from '../../store/task/actions';
 import { TaskRootState } from '../../store/task/reducer';
-import { Option } from '../../types';
+import { OptionGlobal } from '../../types';
 
-const TaskTypeSelector: React.FC<{ type: Option | null, onSelectType: (value: number) => void }> = ({
+const TaskTypeSelector: React.FC<{ type: OptionGlobal | null, onSelectType: (value: number) => void }> = ({
     type,
     onSelectType,
 }) => {

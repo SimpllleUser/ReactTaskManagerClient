@@ -10,8 +10,6 @@ import { ProjectRootState } from '../store/project/reducer';
 import TaskForm from '../components/Task/TaskForm';
 import { getTasksByProjectId } from '../store/task/actions';
 import { TaskRootState } from '../store/task/reducer';
-// import { getTaskById } from '../store/task/actions';
-// import { TaskRootState } from '../store/task/reducer';
 
 const ProjectDetail: React.FC = () => {
     const { id }: { id: string } = useParams();
@@ -21,7 +19,6 @@ const ProjectDetail: React.FC = () => {
     useEffect(() => {
         dispatch(getProjectById(Number(id)))
         dispatch(getTasksByProjectId(Number(id)))
-        // dispatch(getTaskById(1))
     }, []);
     const project = useSelector(
         (store: ProjectRootState) => store.project.projectsDetail[Number(id)] || '',
@@ -29,9 +26,6 @@ const ProjectDetail: React.FC = () => {
     const tasks = useSelector(
         (store: TaskRootState) => store.task.tasksByProject[Number(id)] || '',
     );
-    // const task = useSelector(
-    //     (store: TaskRootState) => store.task.tasksDetail[Number(1)] || '',
-    // );
 
     const { title = '',
         description = '',

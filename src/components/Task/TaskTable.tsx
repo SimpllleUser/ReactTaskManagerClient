@@ -75,7 +75,6 @@ const TaskTable: React.FC<{ tasks: Task[] }> = ({ tasks }) => {
                 onCancel={() => setTaskModalForm(false)}
                 footer={null}
             >
-                <h1>TEst { JSON.stringify(currentTask, null, 4) } </h1>
                 <TaskForm
                     projectId={currentTask?.projectId || null}
                     task={currentTask}

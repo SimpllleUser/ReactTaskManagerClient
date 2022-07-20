@@ -18,10 +18,11 @@ export const authReducer = (state = initialState, action: actionTypes) => {
     switch (action.type) {
         case SIGN_IN:
             localStorage.userActive = JSON.stringify(action.payload);
-            return {...state, userActive: action.payload};
+            return {...state, userActive: action.payload, token: action.payload.token };
         case LOG_OUT:
             localStorage.token = '';
-            return {...state, token: ''};
+            localStorage.userActive = '{}'
+            return {...state, token: '', userActive: '{}'};
         default:
             return state;
     }

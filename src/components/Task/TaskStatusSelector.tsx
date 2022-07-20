@@ -17,17 +17,15 @@ const TaskStatusSelector: React.FC<{ status: OptionGlobal | null, onSelectStatus
     const statuses = useSelector((store: TaskRootState) => store.task.statuses);
     const statusOptins = !statuses.length ? [statusDefault] : statuses;
 
-    const onActiveSelectStatus = () => {
-        if(statuses?.length) return;
-        dispatch(getTaskStatuses())
-    };
+    const onActiveSelectStatus = () => !statuses?.length && dispatch(getTaskStatuses());
 
-    const handleChange = (value: { value: string; label: React.ReactNode }) => {
-        onSelectStatus(Number(value.value));
+    const handleChange = (value: any) => {
+        onSelectStatus(Number(value));
       };
+      handleChange(Number(statusDefault?.id));
 
     return (<>
-        <Form.Item name="status" label="Status" rules={[{
+        <Form.Item name="statusId" label="Status" rules={[{
             required: true,
             message: 'Please select task status',
         }]}>

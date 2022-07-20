@@ -50,12 +50,16 @@ const TaskForm: React.FC<{
       dispatch(action(params));
       sendFormData();
     };
-    const setStatus = (value: number) => { form.setFieldsValue({ statusId: value }); };
+    const setStatus = (value: number) => { 
+      form.setFieldsValue({ statusId: value });
+      console.log('set values', form.getFieldsValue());
+     };
     const setPriority = (value: number) => { form.setFieldsValue({ priorityId: value }); };
     const setType = (value: number) => { form.setFieldsValue({ typeId: value }); };
     useEffect(() => {
-      form.setFieldsValue(taskDefault);
-    })
+      form.setFieldsValue({ ...taskDefault, ...task });
+      console.log('getFieldsValue => ', form.getFieldsValue());
+    }, [])
 
     return (<>
       <Form
@@ -90,8 +94,8 @@ const TaskForm: React.FC<{
           <TextArea />
         </Form.Item>
         <TaskStatusSelector status={task?.status || null} onSelectStatus={setStatus} />
-        <TaskPrioritySelector priority={task?.priority || null} onSelectPriority={setPriority} />
-        <TaskTypeSelector type={task?.type || null} onSelectType={setType} />
+        {/* <TaskPrioritySelector priority={task?.priority || null} onSelectPriority={setPriority} />
+        <TaskTypeSelector type={task?.type || null} onSelectType={setType} /> */}
         <Form.Item>
           <Row>
             <Col span={24} style={{ textAlign: 'right' }}>

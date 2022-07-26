@@ -1,4 +1,4 @@
-import { Button, Col, Modal, Row } from 'antd';
+import { Button, Col, Modal, Row, Space } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -38,18 +38,22 @@ const ProjectDetail: React.FC = () => {
             <Col span={4}>{description}</Col>
             <Col span={4}>{status?.name}</Col>
             <Col span={4}>
+            <Space size='small'>
                 <Button
                     type="primary"
+                    size='small'
                     onClick={() => setProjectModalForm(true)}
                     icon={
                         <EditOutlined key="edit" />
                     } >Edit</Button>
                 <Button
                     type="primary"
+                    size='small'
                     icon={
                         <PlusOutlined />
                     }
                     onClick={() => setTasktModalForm(true)} >Task</Button>
+                    </Space>
             </Col>
         </Row>
         <Row>

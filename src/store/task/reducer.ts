@@ -47,7 +47,7 @@ export const taskReducer = (state = initialState, action: actionTypes) => {
             return {
                 ...state, tasksDetail: {
                     ...state.tasksDetail,
-                    [action.payload.id]: action.payload
+                    [action.payload?.id]: action?.payload
                 }
             };
         case ADD_CRAETED_TASK:
@@ -68,10 +68,13 @@ export const taskReducer = (state = initialState, action: actionTypes) => {
                 }
             };
         case DELETE_TASK:
+            const { id, projectId } = action.payload;
+            const taskList: Task[] = state.tasksByProject[projectId] || [];
             return {
-                ...state,
-                tasks: state.tasks.filter(
-                    (task: Task) => task.id !== action.payload),
+                ...state, tasksByProject: {
+                    ...state.tasksByProject,
+                    [projectId]: taskList?.filter((task: Task) => task.id !== id),
+                }
             };
         case SET_STATUSES:
             return {

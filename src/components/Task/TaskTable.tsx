@@ -1,16 +1,25 @@
 import React, { useState } from 'react';
 import { Button, Modal, Table } from 'antd';
-import { EditOutlined } from '@ant-design/icons';
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { Task, Option } from '../../types';
 import TaskForm from './TaskForm';
+import { useDispatch } from 'react-redux';
+import { deleteTask } from '../../store/task/actions';
 
 const TaskTable: React.FC<{ tasks: Task[] }> = ({ tasks }) => {
+
+    const dispatch = useDispatch();
+
     const [taskModalForm, setTaskModalForm] = useState(false);
     const [currentTask, setCurrentTask] = useState<Task | null>(null);
+
     const onEditTask = (id: number) => {
         const selectedTask = tasks.find((task: Task) => task.id === id) || null;
         setCurrentTask(selectedTask);
         setTaskModalForm(true);
+    };
+    const onDeleteTask = (task: Task) => {
+        dispatch(deleteTask(task));
     };
     const columns = [
         {
@@ -57,7 +66,11 @@ const TaskTable: React.FC<{ tasks: Task[] }> = ({ tasks }) => {
                         icon={
                             <EditOutlined key="edit" />
                         } >Edit</Button>
-                <button>Delete</button>
+                <Button type="primary"
+                         onClick={() => onDeleteTask(task)}
+                           icon={
+                            <DeleteOutlined key="delete" />
+                        }>Delete</Button>
             </>,
         },
     ];

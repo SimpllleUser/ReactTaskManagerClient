@@ -19,7 +19,7 @@ export interface setUpdatedTask {
 }
 export interface deleteTask {
     type: typeof DELETE_TASK,
-    payload: number,
+    payload: Task,
 }
 
 export interface setStatuses {

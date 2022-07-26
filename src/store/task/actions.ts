@@ -1,6 +1,6 @@
 import { taskRepository } from "../../repositpry/task";
 import { TaskCreateParams, TaskUpdateParams } from "../../types";
-import { ADD_CRAETED_TASK, DELETE_TASK, SET_PRIORITIES, SET_STATUSES, SET_TASK, SET_TASK_BY_PROJECT, SET_TYPES } from './types';
+import { ADD_CRAETED_TASK, DELETE_TASK, SET_PRIORITIES, SET_STATUSES, SET_TASK, SET_TASK_BY_PROJECT, SET_TYPES, SET_UPDATED_TASK } from './types';
 
 export const getTasksByProjectId = (projectId: number) => async (dispatch: any): Promise<any> => {
     try {
@@ -43,7 +43,7 @@ export const updatedTask = (
     try {
         const result = await taskRepository.update(taskUpdateParams);
         dispatch({
-            type: SET_TASK,
+            type: SET_UPDATED_TASK,
             payload: result,
         });
     } catch (error) {

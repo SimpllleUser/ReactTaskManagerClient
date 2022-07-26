@@ -7,6 +7,7 @@ import {
     SET_TYPES,
     SET_PRIORITIES,
     SET_STATUSES,
+    SET_UPDATED_TASK,
 } from './types';
 import { Option, Task } from "../../types";
 
@@ -55,6 +56,15 @@ export const taskReducer = (state = initialState, action: actionTypes) => {
                 ...state, tasksByProject: {
                     ...state.tasksByProject,
                     [action.payload.projectId]: [...tasks, action.payload],
+                }
+            };
+        case SET_UPDATED_TASK:
+            const updatedTask: Task = action.payload;
+            const taskListByProject: Task[] = state.tasksByProject[updatedTask.projectId] || [];
+            return {
+                ...state, tasksByProject: {
+                    ...state.tasksByProject,
+                    [updatedTask.projectId]: [updatedTask, ...taskListByProject?.filter(({ id }: Task) => +updatedTask.id !== +id)],
                 }
             };
         case DELETE_TASK:

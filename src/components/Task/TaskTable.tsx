@@ -9,7 +9,6 @@ const TaskTable: React.FC<{ tasks: Task[] }> = ({ tasks }) => {
     const [currentTask, setCurrentTask] = useState<Task | null>(null);
     const onEditTask = (id: number) => {
         const selectedTask = tasks.find((task: Task) => task.id === id) || null;
-        console.log(selectedTask);
         setCurrentTask(selectedTask);
         setTaskModalForm(true);
     };
@@ -33,32 +32,28 @@ const TaskTable: React.FC<{ tasks: Task[] }> = ({ tasks }) => {
             title: 'Type',
             dataIndex: 'type',
             key: 'type',
-            // Type Option
-            render: (_: any, value: any) => value.type.name,
+            render: (option: Option) => option.name,
         },
         {
             title: 'Status',
             dataIndex: 'status',
             key: 'status',
-            // Type Option
-            render: (_: any, value: any) => value.status.name,
+            render: (option: Option) => option.name,
         },
-        // {
-        //     title: 'Priority',
-        //     dataIndex: 'priority',
-        //     key: 'Priority',
-        //     // Type Option
-        //     render: (_: any, value: any) => value.priority.name,
-        // },
+        {
+            title: 'Priority',
+            dataIndex: 'priority',
+            key: 'Priority',
+            render: (option: Option) => option.name,
+        },
         {
             title: 'Actions',
             dataIndex: 'priority',
             key: 'Priority',
             render: (priority: Option, task: Task) => <>
-            { JSON.stringify(priority, null, 4) }
                 <Button
                         type="primary"
-                        onClick={() => onEditTask(task.projectId)}
+                        onClick={() => onEditTask(task.id)}
                         icon={
                             <EditOutlined key="edit" />
                         } >Edit</Button>

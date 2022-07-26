@@ -52,4 +52,5 @@ export type actionTypes =
     deleteTask |
     setTypes |
     setPriorities |
+    setUpdatedTask |
     setStatuses;

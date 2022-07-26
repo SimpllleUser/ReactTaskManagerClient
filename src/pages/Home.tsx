@@ -35,7 +35,7 @@ const Home: React.FC = () => {
                     <div>Home page</div>
                 </Col>
                 <Col span={6}>
-                    <Button type="primary" onClick={showModal}>
+                    <Button type="primary" size='small' onClick={showModal}>
                         Create project
                     </Button>
                 </Col>

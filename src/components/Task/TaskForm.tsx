@@ -5,10 +5,7 @@ import { AuthRootState } from "../../store/auth/reducer";
 import { createTask, updatedTask } from "../../store/task/actions";
 import { Task } from "../../types";
 import FormSelectorGlobal from "../FormSelectorGlobal";
-// import TaskPrioritySelector from './TaskPrioritySelector';
-// import TaskStatusSelector from './TaskStatusSelector';
-// import TaskTypeSelector from './TaskTypeSelector';
-// import { ProjectBase, ProjectCreateParams, Option, Task } from '../../types';
+
 const { TextArea } = Input;
 
 const TaskForm: React.FC<{
@@ -25,7 +22,6 @@ const TaskForm: React.FC<{
   const isEditMode = Boolean(task?.id);
   const [form]: [FormInstance<any>] = Form.useForm();
 
-  // form.setFieldsValue({ statusId: task?.status });
   const onSubmit = (values: any) => {
     const { status, type, priority } = values;
     const params = {
@@ -43,7 +39,7 @@ const TaskForm: React.FC<{
     sendFormData();
   };
   const setStatus = (value: number) => {
-    form.setFieldsValue({ statusId: value });
+    value && form.setFieldsValue({ priorityId: value });
   };
   const setPriority = (value: number) => {
     value && form.setFieldsValue({ priorityId: value });
@@ -90,7 +86,7 @@ const TaskForm: React.FC<{
         >
           <TextArea />
         </Form.Item>
-        {/* <TaskStatusSelector status={task?.status || null} onSelectStatus={setStatus} /> */}
+        
         <FormSelectorGlobal
           label="Status"
           name="statusId"
@@ -118,8 +114,7 @@ const TaskForm: React.FC<{
           value={task?.type || null}
           onSelect={setType}
         />
-        {/* <TaskPrioritySelector priority={task?.priority || null} onSelectPriority={setPriority} />
-        <TaskTypeSelector type={task?.type || null} onSelectType={setType} /> */}
+
         <Form.Item>
           <Row>
             <Col span={24} style={{ textAlign: "right" }}>

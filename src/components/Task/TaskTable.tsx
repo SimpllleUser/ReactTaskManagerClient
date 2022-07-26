@@ -86,7 +86,7 @@ const TaskTable: React.FC<{ tasks: Task[] }> = ({ tasks }) => {
   return (
     <>
       <Modal
-        title="Projetc form"
+        title="Task form"
         visible={Boolean(currentTask?.id) && taskModalForm}
         onOk={() => setTaskModalForm(false)}
         onCancel={() => setTaskModalForm(false)}

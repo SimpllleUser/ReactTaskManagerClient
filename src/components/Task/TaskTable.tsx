@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Modal, Popconfirm, Table, Tooltip } from "antd";
+import { Button, Modal, Popconfirm, Space, Table, Tooltip } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { Task, Option } from "../../types";
 import TaskForm from "./TaskForm";
@@ -60,6 +60,7 @@ const TaskTable: React.FC<{ tasks: Task[] }> = ({ tasks }) => {
       key: "Priority",
       render: (priority: Option, task: Task) => (
         <>
+        <Space size='small'>
           <Button
             type="primary"
             size="small"
@@ -78,6 +79,7 @@ const TaskTable: React.FC<{ tasks: Task[] }> = ({ tasks }) => {
               Delete
             </Button>
           </Popconfirm>
+          </Space>
         </>
       ),
     },

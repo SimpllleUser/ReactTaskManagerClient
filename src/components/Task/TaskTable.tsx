@@ -75,7 +75,11 @@ const TaskTable: React.FC<{ tasks: Task[] }> = ({ tasks }) => {
             okText="Yes"
             cancelText="No"
           >
-            <Button type="primary" size="small">
+            <Button 
+            type="primary"
+             size="small"
+             icon={<DeleteOutlined key="edit" />}
+             >
               Delete
             </Button>
           </Popconfirm>

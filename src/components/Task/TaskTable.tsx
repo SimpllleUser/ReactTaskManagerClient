@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Modal, Table, Tooltip } from "antd";
+import { Button, Modal, Popconfirm, Table, Tooltip } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { Task, Option } from "../../types";
 import TaskForm from "./TaskForm";
@@ -62,20 +62,22 @@ const TaskTable: React.FC<{ tasks: Task[] }> = ({ tasks }) => {
         <>
           <Button
             type="primary"
+            size="small"
             onClick={() => onEditTask(task.id)}
             icon={<EditOutlined key="edit" />}
           >
             Edit
           </Button>
-          <Tooltip title="Do you wanna delete this task ?" color="red">
-            <Button
-              type="primary"
-              onClick={() => onDeleteTask(task)}
-              icon={<DeleteOutlined key="delete" />}
-            >
+          <Popconfirm
+            title="Do you wanna delete this task ?"
+            onConfirm={() => onDeleteTask(task)}
+            okText="Yes"
+            cancelText="No"
+          >
+            <Button type="primary" size="small">
               Delete
             </Button>
-          </Tooltip>
+          </Popconfirm>
         </>
       ),
     },

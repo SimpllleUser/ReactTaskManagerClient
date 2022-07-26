@@ -1,6 +1,7 @@
-import { Button, Col, Modal, Row } from 'antd';
+import { Button, Col, Modal, Row, Space } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { PlusOutlined } from "@ant-design/icons";
 import ProjectCard from '../components/Project/ProjectCard';
 import ProjectForm from '../components/Project/ProjectForm';
 import { AuthRootState } from '../store/auth/reducer';
@@ -30,26 +31,24 @@ const Home: React.FC = () => {
     const projects = useSelector((state: ProjectRootState) => state.project.projects);
     return (<div className='home-page' style={{ padding: '12px' }}>
         <div style={{ padding: '12px' }}>
-            <Row justify="space-around" align="middle">
-                <Col span={6}>
+            <Row justify="space-between" align="middle">
+                <Col >
                     <div>Home page</div>
                 </Col>
-                <Col span={6}>
-                    <Button type="primary" size='small' onClick={showModal}>
+                <Col>
+                    <Button type="primary" size='small' onClick={showModal} icon={
+                        <PlusOutlined />
+                    }>
                         Create project
                     </Button>
                 </Col>
             </Row>
         </div>
-        <div style={{
-            display: 'flex',
-            justifyContent: 'flex-start',
-            flexWrap: 'wrap'
-        }}>
+        <Space align="center" wrap size={[8, 16]}>
             {projects.map((project) => {
                 return <ProjectCard key={project.id} project={project} />;
             })}
-        </div>
+        </Space>
 
         <Modal
             title="Projetc form"

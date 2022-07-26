@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Card } from "antd";
+import { Button, Card, Popconfirm } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 import { ProjectBase } from "../../types";
 import { Link } from "react-router-dom";
@@ -19,14 +19,22 @@ const ProjectCard: React.FC<{ project: ProjectBase }> = ({ project }) => {
     >
       <div className="project-card__description">{project.description}</div>
       <div className="project-card__actions">
-      <Button
-              type="primary"
-              onClick={() => dispatch(deleteProject(project.id))}
-              icon={<DeleteOutlined key="delete"/>}
-              size='small'
-            >Delete</Button>
+      <Popconfirm
+            title="Do you wanna delete this project ?"
+            onConfirm={() => dispatch(deleteProject(project.id))}
+            okText="Yes"
+            cancelText="No"
+          >
+            <Button 
+            type="primary"
+             size="small"
+             icon={<DeleteOutlined key="edit" />}
+             >
+              Delete
+            </Button>
+          </Popconfirm>
+    
       </div>
-      {/* <Meta description={project.description} /> */}
     </Card>
   );
 };

@@ -1,4 +1,4 @@
-import { Button, Col, Modal, Row, Space } from "antd";
+import { Button, Col, Modal, Row, Space, Collapse  } from "antd";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -10,6 +10,9 @@ import { ProjectRootState } from "../store/project/reducer";
 import TaskForm from "../components/Task/TaskForm";
 import { getTasksByProjectId } from "../store/task/actions";
 import { TaskRootState } from "../store/task/reducer";
+import UserTable from "../components/User/UserTable";
+
+const { Panel } = Collapse;
 
 const ProjectDetail: React.FC = () => {
   const { id }: { id: string } = useParams();
@@ -66,6 +69,11 @@ const ProjectDetail: React.FC = () => {
           </Space>
         </Col>
       </Row>
+      <Collapse accordion>
+      <Panel header="Team" key="1">
+        <UserTable users={project.team} ></UserTable>
+      </Panel>
+    </Collapse>
       <Row>
         <Modal
           title="Projetc form"

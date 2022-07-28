@@ -1,11 +1,17 @@
 import { projectRepository } from "../../repositpry/project";
-import { ProjectCreateParams, ProjectDetail } from "../../types";
+import {
+  ActionUserWithProjectParams,
+  ProjectCreateParams,
+  ProjectDetail,
+} from "../../types";
 import {
   ADD_CRAETED_PROJECT,
   DELETE_PROJECT,
   SET_PROJECT,
   SET_PROJECT_BY_AUHTOR,
   SET_STATUSES,
+  SET_USERS,
+  UNSET_USERS,
 } from "./types";
 
 export const getProjectsByAuthor =
@@ -60,5 +66,23 @@ export const getProjectStatuses =
     dispatch({
       type: SET_STATUSES,
       payload: result,
+    });
+  };
+export const addUsersToProject =
+  (params: ActionUserWithProjectParams) =>
+  async (dispatch: any): Promise<any> => {
+    const result = await projectRepository.addUsersToProject(params);
+    dispatch({
+      type: SET_USERS,
+      payload: { projectId: params.projectId, users: result },
+    });
+  };
+export const removeUsersFromProject =
+  (params: ActionUserWithProjectParams) =>
+  async (dispatch: any): Promise<any> => {
+    const result = await projectRepository.deleteUsersFromProject(params);
+    dispatch({
+      type: UNSET_USERS,
+      payload: { projectId: params.projectId, users: result },
     });
   };

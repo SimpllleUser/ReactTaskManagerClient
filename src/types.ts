@@ -73,3 +73,12 @@ export interface TaskCreateParams {
     projectId: number;
 }
 export type TaskUpdateParams = TaskCreateParams & { id: number };
+
+export type ActionUserWithProjectParams = {
+    projectId: number;
+    userIds: string[];
+};
+export type ActionUserWithProjectResult = {
+    projectId: number;
+    users: User[];
+};

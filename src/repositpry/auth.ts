@@ -26,12 +26,12 @@ export type ResponseResult<T> = { data: { result: T } }
 export class authRepository {
 
     static async sigIn({ login, password }: T_PARAMS_SING_IN): Promise<UserAuthentificated> {
-        const { data }: ResponseResult<UserAuthentificated> = await axios.post(`${url}/login`, { login, password });
-        return data?.result;
+        const response: any = await axios.post(`${url}/login`, { login, password });
+        return response;
     }
 
     static async signUp(params: SignUpParams): Promise<UserAuthentificated> {
-        const { data }: ResponseResult<UserAuthentificated> = await axios.post(`${url}/registration`, params);
-        return data.result;
+        const response: any = await axios.post(`${url}/registration`, params);
+        return response;
     }
 }

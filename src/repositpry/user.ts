@@ -8,12 +8,7 @@ const url = 'http://localhost:7000/users'
 export class userRepository {
 
     static async getAll(): Promise<User[]> {
-        const { data }: ResponseResult<User[]> = await axios.get(`${url}`);
-        return data?.result;
+        const response: any = await axios.get(`${url}`);
+        return response;
     }
-
-    // static async signUp(params: SignUpParams): Promise<UserAuthentificated> {
-    //     const { data }: ResponseResult<UserAuthentificated> = await axios.post(`${url}/registration`, params);
-    //     return data.result;
-    // }
 }

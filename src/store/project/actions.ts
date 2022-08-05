@@ -1,4 +1,4 @@
-import store, { dispatchWrapper } from "../../store";
+import { dispatchWrapper } from "../../store";
 import { ProjectRepository } from "../../repositpry/project";
 import {
   ActionUserWithProjectParams,
@@ -21,67 +21,31 @@ export const getProjectsByAuthor = (userId: number) =>
     userId,
     SET_PROJECT_BY_AUHTOR
   );
-export const getProjectById =
-  (projectId: number) =>
-  async (dispatch: any): Promise<any> => {
-    const result = await ProjectRepository.findOneById(projectId);
-    dispatch({
-      type: SET_PROJECT,
-      payload: result,
-    });
-  };
-export const createProject =
-  (projectCreateParams: ProjectCreateParams) =>
-  async (dispatch: any): Promise<any> => {
-    const result = await ProjectRepository.create(projectCreateParams);
-    dispatch({
-      type: ADD_CRAETED_PROJECT,
-      payload: result,
-    });
-  };
-export const updatedProject =
-  (projectUpdateParams: ProjectDetail) =>
-  async (dispatch: any): Promise<any> => {
-    const result = await ProjectRepository.update(projectUpdateParams);
-    if (!result?.id) return;
-    dispatch({
-      type: SET_PROJECT,
-      payload: result,
-    });
-  };
-export const deleteProject =
-  (id: number) =>
-  async (dispatch: any): Promise<any> => {
-    await ProjectRepository.delete(id);
-    dispatch({
-      type: DELETE_PROJECT,
-      payload: id,
-    });
-  };
-export const getProjectStatuses =
-  () =>
-  async (dispatch: any): Promise<any> => {
-    const result = await ProjectRepository.getStatuses();
-    dispatch({
-      type: SET_STATUSES,
-      payload: result,
-    });
-  };
-export const addUsersToProject =
-  (params: ActionUserWithProjectParams) =>
-  async (dispatch: any): Promise<any> => {
-    const result = await ProjectRepository.addUsersToProject(params);
-    dispatch({
-      type: SET_USERS,
-      payload: { projectId: params.projectId, users: result },
-    });
-  };
-export const removeUsersFromProject =
-  (params: ActionUserWithProjectParams) =>
-  async (dispatch: any): Promise<any> => {
-    const result = await ProjectRepository.deleteUsersFromProject(params);
-    dispatch({
-      type: UNSET_USERS,
-      payload: { projectId: params.projectId, users: result },
-    });
-  };
+export const getProjectById = (projectId: number) =>
+  dispatchWrapper(ProjectRepository.findOneById, projectId, SET_PROJECT);
+
+export const createProject = (projectCreateParams: ProjectCreateParams) =>
+  dispatchWrapper(
+    ProjectRepository.create,
+    projectCreateParams,
+    ADD_CRAETED_PROJECT
+  );
+
+export const updatedProject = (projectUpdateParams: ProjectDetail) =>
+  dispatchWrapper(ProjectRepository.update, projectUpdateParams, SET_PROJECT);
+
+export const deleteProject = (id: number) =>
+  dispatchWrapper(ProjectRepository.delete, id, DELETE_PROJECT);
+
+export const getProjectStatuses = () =>
+  dispatchWrapper(ProjectRepository.getStatuses, "", SET_STATUSES);
+
+export const addUsersToProject = (params: ActionUserWithProjectParams) =>
+  dispatchWrapper(ProjectRepository.addUsersToProject, params, SET_USERS);
+
+export const removeUsersFromProject = (params: ActionUserWithProjectParams) =>
+  dispatchWrapper(
+    ProjectRepository.deleteUsersFromProject,
+    params,
+    UNSET_USERS
+  );

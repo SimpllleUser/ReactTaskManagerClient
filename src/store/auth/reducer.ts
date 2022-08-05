@@ -1,5 +1,6 @@
 import {actionTypes, LOG_OUT, SIGN_IN,} from "./types";
 import { UserAuthentificated } from "../../types";
+
 import { setToken } from "../../plugins/axios";
 
 export type AuthState = {

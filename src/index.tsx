@@ -6,6 +6,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './plugins/index';
 import configureStore from './store/index';
+import { message } from 'antd';
 const store = configureStore();
 
 ReactDOM.render(

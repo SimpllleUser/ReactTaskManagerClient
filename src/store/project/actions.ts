@@ -36,16 +36,15 @@ export const updatedProject = (projectUpdateParams: ProjectDetail) =>
 
 export const deleteProject = (id: number) =>
   dispatchWrapper(ProjectRepository.delete, id, DELETE_PROJECT);
-
+  
 export const getProjectStatuses = () =>
   dispatchWrapper(ProjectRepository.getStatuses, "", SET_STATUSES);
 
-export const addUsersToProject = (params: ActionUserWithProjectParams) =>
+export const addUsersToProject =
+  (params: ActionUserWithProjectParams) =>
   dispatchWrapper(ProjectRepository.addUsersToProject, params, SET_USERS);
 
-export const removeUsersFromProject = (params: ActionUserWithProjectParams) =>
-  dispatchWrapper(
-    ProjectRepository.deleteUsersFromProject,
-    params,
-    UNSET_USERS
-  );
+export const removeUsersFromProject =
+  (params: ActionUserWithProjectParams) =>
+  dispatchWrapper(ProjectRepository.deleteUsersFromProject, params, UNSET_USERS);
+

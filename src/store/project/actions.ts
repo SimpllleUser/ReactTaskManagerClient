@@ -8,6 +8,7 @@ import {
 import {
   ADD_CRAETED_PROJECT,
   DELETE_PROJECT,
+  SET_COMMENTS,
   SET_PROJECT,
   SET_PROJECT_BY_AUHTOR,
   SET_STATUSES,
@@ -47,4 +48,9 @@ export const addUsersToProject =
 export const removeUsersFromProject =
   (params: ActionUserWithProjectParams) =>
   dispatchWrapper(ProjectRepository.deleteUsersFromProject, params, UNSET_USERS);
+
+export const getProjectComments =
+  (projectId: number) =>
+  dispatchWrapper(ProjectRepository.getComments, projectId, SET_COMMENTS);
+  /// ! CREATE PROJECT COMMENT
 

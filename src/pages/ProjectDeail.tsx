@@ -1,4 +1,4 @@
-import { Button, Col, Modal, Row, Space, Collapse  } from "antd";
+import { Button, Col, Modal, Row, Space, Collapse } from "antd";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -11,6 +11,7 @@ import TaskForm from "../components/Task/TaskForm";
 import { getTasksByProjectId } from "../store/task/actions";
 import { TaskRootState } from "../store/task/reducer";
 import UserTable from "../components/User/UserTable";
+import CommentForm from "../components/CommentForm";
 
 const { Panel } = Collapse;
 
@@ -70,10 +71,10 @@ const ProjectDetail: React.FC = () => {
         </Col>
       </Row>
       <Collapse accordion>
-      <Panel header="Team" key="1">
-        <UserTable projectId={project.id} users={project.team} ></UserTable>
-      </Panel>
-    </Collapse>
+        <Panel header="Team" key="1">
+          <UserTable projectId={project.id} users={project.team} ></UserTable>
+        </Panel>
+      </Collapse>
       <Row>
         <Modal
           title="Projetc form"
@@ -101,6 +102,7 @@ const ProjectDetail: React.FC = () => {
           />
         </Modal>
       </Row>
+      <CommentForm methodSubmitComment={ projectCreate } author={null}/>
       <TaskTable tasks={tasks} />
     </>
   );

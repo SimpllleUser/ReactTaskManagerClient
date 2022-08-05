@@ -2,18 +2,20 @@ import {
   actionTypes,
   ADD_CRAETED_PROJECT,
   DELETE_PROJECT,
+  SET_COMMENTS,
   SET_PROJECT,
   SET_PROJECT_BY_AUHTOR,
   SET_STATUSES,
   SET_USERS,
   UNSET_USERS,
 } from "./types";
-import { Option, ProjectBase, ProjectDetail } from "../../types";
+import { Option, ProjectBase, ProjectComment, ProjectDetail } from "../../types";
 
 export type ProjectState = {
   projects: ProjectBase[];
   projectsDetail: ProjectDetail[];
   statuses: Option[];
+  projectComments: ProjectComment[];
 };
 
 export type ProjectRootState = {
@@ -24,6 +26,7 @@ const initialState = {
   projects: [],
   projectsDetail: [],
   statuses: [],
+  projectComments: [],
 };
 
 export const projectReducer = (state = initialState, action: actionTypes) => {
@@ -81,6 +84,15 @@ export const projectReducer = (state = initialState, action: actionTypes) => {
         ...state,
         statuses: action.payload,
       };
+      case SET_COMMENTS:
+        if (!action?.payload?.length) return state;
+        const comment: ProjectComment = action.payload[0]
+        return {
+            ...state, projectComments: {
+                ...state.projectComments,
+                [comment.projectId]: action.payload
+            }
+        };
     default:
       return state;
   }

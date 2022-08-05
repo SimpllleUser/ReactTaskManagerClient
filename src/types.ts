@@ -82,3 +82,25 @@ export type ActionUserWithProjectResult = {
     projectId: number;
     users: User[];
 };
+
+type  CommentParams  = {
+    id: number;
+    authorId: number;
+    body: string;
+    updatedAt: Date;
+    createdAt: Date;
+}
+
+
+type  Comment = CommentParams &  {
+    author: User;
+} 
+
+export type ProjectComment = Comment & { projectId: number };
+
+export type TaskComment = Comment & { taskId: number };
+
+export type CommentCraeteParams = { projectId: number } & CommentParams | { taskId: number} & CommentParams;
+
+
+

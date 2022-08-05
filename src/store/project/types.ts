@@ -1,4 +1,4 @@
-import { ProjectBase, Option, ProjectDetail, ActionUserWithProjectParams, ActionUserWithProjectResult } from "../../types";
+import { ProjectBase, Option, ProjectDetail, ActionUserWithProjectParams, ActionUserWithProjectResult, ProjectComment } from "../../types";
 
 export interface setProjectsByAuthor {
     type: typeof SET_PROJECT_BY_AUHTOR,
@@ -35,6 +35,11 @@ export interface removeUsersFromProject {
     payload: ActionUserWithProjectResult,
 }
 
+export interface getProjectComments {
+    type: typeof SET_COMMENTS,
+    payload: ProjectComment[],
+}
+
 export const SET_PROJECT_BY_AUHTOR = 'PROJECTS/SET_PROJECT_BY_AUHTOR';
 export const SET_PROJECT = 'PROJECTS/SET_PROJECT';
 export const SET_STATUSES = 'PROJECTS/SET_STATUSES';
@@ -43,6 +48,7 @@ export const UNSET_USERS = 'PROJECTS/UNSET_USERS';
 export const ADD_CRAETED_PROJECT = 'PROJECTS/ADD_CRAETED_PROJECT';
 export const SET_UPDATED_PROJECT = 'PROJECTS/SET_UPDATED_PROJECT';
 export const DELETE_PROJECT = 'PROJECTS/DELETE_PROJECT';
+export const SET_COMMENTS = 'PROJECTS/SET_COMMENTS';
 
 export type actionTypes =
     setProjectsByAuthor |
@@ -52,4 +58,5 @@ export type actionTypes =
     deleteProject |
     setOnUsersOnProject |
     removeUsersFromProject |
+    getProjectComments |
     setUpdatedProject;

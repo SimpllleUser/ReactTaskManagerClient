@@ -2,12 +2,14 @@ import { dispatchWrapper } from "../../store";
 import { ProjectRepository } from "../../repositpry/project";
 import {
   ActionUserWithProjectParams,
+  CommentCraeteParams,
   ProjectCreateParams,
   ProjectDetail,
 } from "../../types";
 import {
   ADD_CRAETED_PROJECT,
   DELETE_PROJECT,
+  SET_COMMENT,
   SET_COMMENTS,
   SET_PROJECT,
   SET_PROJECT_BY_AUHTOR,
@@ -52,5 +54,9 @@ export const removeUsersFromProject =
 export const getProjectComments =
   (projectId: number) =>
   dispatchWrapper(ProjectRepository.getComments, projectId, SET_COMMENTS);
+
+export const projectCreateComment =
+  (comment: CommentCraeteParams) =>
+  dispatchWrapper(ProjectRepository.createComment, comment, SET_COMMENT);
   /// ! CREATE PROJECT COMMENT
 

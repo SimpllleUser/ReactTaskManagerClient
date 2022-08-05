@@ -5,6 +5,7 @@ import {
   ProjectCreateParams,
   ProjectDetail,
   ActionUserWithProjectParams,
+  CommentCraeteParams,
 } from "../types";
 
 const url = "http://localhost:7000/project";
@@ -56,6 +57,10 @@ export class ProjectRepository {
   }
   static async getComments(projectId: number): Promise<any> {
     const response: any = await axios.get(`${url}/${projectId}/comment/all`,);
+    return response;
+  }
+  static async createComment(params: CommentCraeteParams): Promise<any> {
+    const response: any = await axios.patch(`${url}/comment/add`, params);
     return response;
   }
 }

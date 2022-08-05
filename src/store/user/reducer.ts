@@ -3,6 +3,7 @@ import { User } from "../../types";
 
 export type UserState = {
     users: User[] 
+    userActive: User 
 };
 
 export type UserRootState = {
@@ -11,6 +12,7 @@ export type UserRootState = {
 
 const initialState = {
     users: [],
+    userActive: JSON.parse(localStorage.getItem('userActive') || '{}'),
 };
 
 export const userReducer = (state = initialState, action: actionTypes) => {

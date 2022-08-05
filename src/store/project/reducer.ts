@@ -2,6 +2,7 @@ import {
   actionTypes,
   ADD_CRAETED_PROJECT,
   DELETE_PROJECT,
+  SET_COMMENT,
   SET_COMMENTS,
   SET_PROJECT,
   SET_PROJECT_BY_AUHTOR,
@@ -9,13 +10,18 @@ import {
   SET_USERS,
   UNSET_USERS,
 } from "./types";
-import { Option, ProjectBase, ProjectComment, ProjectDetail } from "../../types";
+import {
+  Option,
+  ProjectBase,
+  ProjectComment,
+  ProjectDetail,
+} from "../../types";
 
 export type ProjectState = {
   projects: ProjectBase[];
   projectsDetail: ProjectDetail[];
   statuses: Option[];
-  projectComments: ProjectComment[];
+  projectComments: { [key: string | number]: ProjectComment[] };
 };
 
 export type ProjectRootState = {
@@ -67,10 +73,13 @@ export const projectReducer = (state = initialState, action: actionTypes) => {
     case UNSET_USERS:
       const params = action.payload;
       const userIds = params.users.map((user) => user.id);
-      const currentProjectOnDeleteUsers: ProjectDetail = state.projectsDetail[params.projectId];
+      const currentProjectOnDeleteUsers: ProjectDetail =
+        state.projectsDetail[params.projectId];
       const updatedProjectAfterDeleteUsers = {
         ...currentProjectOnDeleteUsers,
-        team: currentProjectOnDeleteUsers?.team.filter(({ id }) => !userIds.includes(id)),
+        team: currentProjectOnDeleteUsers?.team.filter(
+          ({ id }) => !userIds.includes(id)
+        ),
       };
       return {
         ...state,
@@ -84,15 +93,32 @@ export const projectReducer = (state = initialState, action: actionTypes) => {
         ...state,
         statuses: action.payload,
       };
-      case SET_COMMENTS:
-        if (!action?.payload?.length) return state;
-        const comment: ProjectComment = action.payload[0]
-        return {
-            ...state, projectComments: {
-                ...state.projectComments,
-                [comment.projectId]: action.payload
-            }
-        };
+    case SET_COMMENTS:
+      if (!action?.payload?.length) return state;
+      const comment: ProjectComment = action.payload[0];
+      return {
+        ...state,
+        projectComments: {
+          ...state.projectComments,
+          [comment.projectId]: action.payload,
+        },
+      };
+
+    case SET_COMMENT:
+      if (!action?.payload) return state;
+      const createdComment = action.payload;
+      const currentProjectCommentList =
+        [
+          ...state.projectComments[createdComment.projectId],
+          createdComment,
+        ] || [];
+      return {
+        ...state,
+        projectComments: {
+          ...state.projectComments,
+          [createdComment.projectId]: currentProjectCommentList,
+        },
+      };
     default:
       return state;
   }

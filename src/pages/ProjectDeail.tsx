@@ -5,27 +5,35 @@ import { useParams } from "react-router-dom";
 import { PlusOutlined, EditOutlined } from "@ant-design/icons";
 import ProjectForm from "../components/Project/ProjectForm";
 import TaskTable from "../components/Task/TaskTable";
-import { getProjectById } from "../store/project/actions";
+import { getProjectById, getProjectComments, projectCreateComment } from "../store/project/actions";
 import { ProjectRootState } from "../store/project/reducer";
 import TaskForm from "../components/Task/TaskForm";
 import { getTasksByProjectId } from "../store/task/actions";
 import { TaskRootState } from "../store/task/reducer";
 import UserTable from "../components/User/UserTable";
 import CommentForm from "../components/CommentForm";
+import { UserRootState } from "../store/user/reducer";
+import CommentCard from "../components/CommentCard";
+import { ProjectComment } from "../types";
 
 const { Panel } = Collapse;
 
 const ProjectDetail: React.FC = () => {
   const { id }: { id: string } = useParams();
   const dispatch = useDispatch();
+  const authorId = useSelector((store: UserRootState) => store.user.userActive.id);
   const [projectModalForm, setProjectModalForm] = useState(false);
   const [taskModalForm, setTasktModalForm] = useState(false);
   useEffect(() => {
     dispatch(getProjectById(Number(id)));
     dispatch(getTasksByProjectId(Number(id)));
+    dispatch(getProjectComments(Number(id)));
   }, []);
   const project = useSelector(
     (store: ProjectRootState) => store.project.projectsDetail[Number(id)] || ""
+  );
+  const comments = useSelector(
+    (store: ProjectRootState) => store.project.projectComments[Number(id)] || []
   );
   const tasks = useSelector(
     (store: TaskRootState) => store.task.tasksByProject[Number(id)] || ""
@@ -102,7 +110,19 @@ const ProjectDetail: React.FC = () => {
           />
         </Modal>
       </Row>
-      <CommentForm methodSubmitComment={ projectCreate } author={null}/>
+      <Row justify="space-around">
+        <Col span={11}>
+          <CommentForm
+            methodSubmitComment={projectCreateComment}
+            authorId={authorId}
+            projectId={Number(id)}
+            taskId={null} />
+          {comments?.map(
+            (comment: { id: any; }) => <div>
+              <CommentCard key={`comment-key-${comment.id}`} comment={comment} />
+            </div>)}
+        </Col>
+      </Row>
       <TaskTable tasks={tasks} />
     </>
   );

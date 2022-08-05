@@ -84,23 +84,23 @@ export type ActionUserWithProjectResult = {
 };
 
 type  CommentParams  = {
-    id: number;
     authorId: number;
     body: string;
-    updatedAt: Date;
-    createdAt: Date;
 }
 
 
 type  Comment = CommentParams &  {
+    id: number;
     author: User;
+    updatedAt: Date;
+    createdAt: Date;
 } 
 
 export type ProjectComment = Comment & { projectId: number };
 
 export type TaskComment = Comment & { taskId: number };
 
-export type CommentCraeteParams = { projectId: number } & CommentParams | { taskId: number} & CommentParams;
+export type CommentCraeteParams = { projectId?: number; taskId: number; } & CommentParams;
 
 
 

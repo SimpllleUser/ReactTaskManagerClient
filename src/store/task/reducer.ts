@@ -37,10 +37,12 @@ const initialState = {
 export const taskReducer = (state = initialState, action: actionTypes) => {
     switch (action.type) {
         case SET_TASK_BY_PROJECT:
+            if (!action?.payload?.length) return state;
+            const task: Task = action.payload[0]
             return {
                 ...state, tasksByProject: {
                     ...state.tasksByProject,
-                    [action.payload.projectId]: action.payload.tasks
+                    [task.projectId]: action.payload
                 }
             };
         case SET_TASK:
@@ -68,7 +70,7 @@ export const taskReducer = (state = initialState, action: actionTypes) => {
                 }
             };
         case DELETE_TASK:
-            const { id, projectId } = action.payload;
+            const { id, projectId }: Task = action.payload;
             const taskList: Task[] = state.tasksByProject[projectId] || [];
             return {
                 ...state, tasksByProject: {

@@ -14,10 +14,10 @@ const rootReducer = combineReducers({
     user: userReducer,
 });
 
-export const dispatchWrapper = (method: any, params: any, typeDispatch: any) => async (dispatch: any) => {
+export const dispatchWrapper = (method: any, params: any, typeDispatch: any, customParams?: any) => async (dispatch: any) => {
     const resultResponse = await method(params);
     const { data, response } = resultResponse;
-    if (data?.result) return dispatch({ type: typeDispatch, payload: data.result });
+    if (data?.result) return dispatch({ type: typeDispatch, payload: customParams || data.result });
     if (response?.status === 401) return  dispatch({ type: LOG_OUT})
   }
 

@@ -55,7 +55,7 @@ export interface Task {
     executor: User;
 }
 
-export type UserAuthentificated = User & { token: number };
+export type UserAuthentificated = User & { token: string };
 export interface Option {
     id: number | string;
     name: string;

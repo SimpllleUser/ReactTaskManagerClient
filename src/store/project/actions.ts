@@ -1,4 +1,5 @@
-import { projectRepository } from "../../repositpry/project";
+import store, { dispatchWrapper } from "../../store";
+import { ProjectRepository } from "../../repositpry/project";
 import {
   ActionUserWithProjectParams,
   ProjectCreateParams,
@@ -14,19 +15,16 @@ import {
   UNSET_USERS,
 } from "./types";
 
-export const getProjectsByAuthor =
-  (userId: number) =>
-  async (dispatch: any): Promise<any> => {
-    const result = await projectRepository.getAllByAuthorId(userId);
-    dispatch({
-      type: SET_PROJECT_BY_AUHTOR,
-      payload: result,
-    });
-  };
+export const getProjectsByAuthor = (userId: number) =>
+  dispatchWrapper(
+    ProjectRepository.getAllByAuthorId,
+    userId,
+    SET_PROJECT_BY_AUHTOR
+  );
 export const getProjectById =
   (projectId: number) =>
   async (dispatch: any): Promise<any> => {
-    const result = await projectRepository.findOneById(projectId);
+    const result = await ProjectRepository.findOneById(projectId);
     dispatch({
       type: SET_PROJECT,
       payload: result,
@@ -35,7 +33,7 @@ export const getProjectById =
 export const createProject =
   (projectCreateParams: ProjectCreateParams) =>
   async (dispatch: any): Promise<any> => {
-    const result = await projectRepository.create(projectCreateParams);
+    const result = await ProjectRepository.create(projectCreateParams);
     dispatch({
       type: ADD_CRAETED_PROJECT,
       payload: result,
@@ -44,7 +42,8 @@ export const createProject =
 export const updatedProject =
   (projectUpdateParams: ProjectDetail) =>
   async (dispatch: any): Promise<any> => {
-    const result = await projectRepository.update(projectUpdateParams);
+    const result = await ProjectRepository.update(projectUpdateParams);
+    if (!result?.id) return;
     dispatch({
       type: SET_PROJECT,
       payload: result,
@@ -53,7 +52,7 @@ export const updatedProject =
 export const deleteProject =
   (id: number) =>
   async (dispatch: any): Promise<any> => {
-    await projectRepository.delete(id);
+    await ProjectRepository.delete(id);
     dispatch({
       type: DELETE_PROJECT,
       payload: id,
@@ -62,7 +61,7 @@ export const deleteProject =
 export const getProjectStatuses =
   () =>
   async (dispatch: any): Promise<any> => {
-    const result = await projectRepository.getStatuses();
+    const result = await ProjectRepository.getStatuses();
     dispatch({
       type: SET_STATUSES,
       payload: result,
@@ -71,7 +70,7 @@ export const getProjectStatuses =
 export const addUsersToProject =
   (params: ActionUserWithProjectParams) =>
   async (dispatch: any): Promise<any> => {
-    const result = await projectRepository.addUsersToProject(params);
+    const result = await ProjectRepository.addUsersToProject(params);
     dispatch({
       type: SET_USERS,
       payload: { projectId: params.projectId, users: result },
@@ -80,7 +79,7 @@ export const addUsersToProject =
 export const removeUsersFromProject =
   (params: ActionUserWithProjectParams) =>
   async (dispatch: any): Promise<any> => {
-    const result = await projectRepository.deleteUsersFromProject(params);
+    const result = await ProjectRepository.deleteUsersFromProject(params);
     dispatch({
       type: UNSET_USERS,
       payload: { projectId: params.projectId, users: result },

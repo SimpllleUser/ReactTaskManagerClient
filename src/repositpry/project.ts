@@ -4,10 +4,10 @@ import { ProjectBase, Option, ProjectCreateParams, ProjectDetail, ActionUserWith
 const url = 'http://localhost:7000/project'
 
 
-export class projectRepository {
+export class ProjectRepository {    
     static async getAllByAuthorId(authorId: number): Promise<ProjectBase[]> {
-        const {data}: any = await axios.get(`${url}/author/${authorId}`);
-        return data?.result;
+        const response: any = await axios.get(`${url}/author/${authorId}`);
+        return response;
     }
     static async findOneById(projectId: number): Promise<ProjectBase> {
         const {data}: any = await axios.get(`${url}/${projectId}`);

@@ -8,8 +8,10 @@ import {
     SET_PRIORITIES,
     SET_STATUSES,
     SET_UPDATED_TASK,
+    SET_COMMENTS,
+    SET_COMMENT,
 } from './types';
-import { Option, Task } from "../../types";
+import { Option, Task, TaskComment } from "../../types";
 
 export type TasktState = {
     tasks: Task[];
@@ -18,6 +20,8 @@ export type TasktState = {
     statuses: Option[];
     types: Option[];
     priorities: Option[];
+    taskComments: { [key: string | number]: TaskComment[] };
+
 };
 
 export type TaskRootState = {
@@ -31,6 +35,7 @@ const initialState = {
     statuses: [],
     types: [],
     priorities: [],
+    taskComments: [],
 };
 
 
@@ -90,6 +95,32 @@ export const taskReducer = (state = initialState, action: actionTypes) => {
             return {
                 ...state, priorities: action.payload,
             };
+            case SET_COMMENTS:
+                if (!action?.payload?.length) return state;
+                const comment: TaskComment = action.payload[0];
+                return {
+                  ...state,
+                  projectComments: {
+                    ...state.taskComments,
+                    [comment.taskId]: action.payload,
+                  },
+                };
+          
+              case SET_COMMENT:
+                if (!action?.payload) return state;
+                const createdComment = action.payload;
+                const currentProjectCommentList =
+                  [
+                    ...state.taskComments[createdComment.taskId],
+                    createdComment,
+                  ] || [];
+                return {
+                  ...state,
+                  projectComments: {
+                    ...state.taskComments,
+                    [createdComment.taskId]: currentProjectCommentList,
+                  },
+                };
         default:
             return state;
     }

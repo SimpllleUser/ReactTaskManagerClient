@@ -1,9 +1,16 @@
 import { dispatchWrapper } from "..";
 import { taskRepository } from "../../repositpry/task";
-import { Task, TaskCreateParams, TaskUpdateParams } from "../../types";
+import {
+  CommentCraeteParams,
+  Task,
+  TaskCreateParams,
+  TaskUpdateParams,
+} from "../../types";
 import {
   ADD_CRAETED_TASK,
   DELETE_TASK,
+  SET_COMMENT,
+  SET_COMMENTS,
   SET_PRIORITIES,
   SET_STATUSES,
   SET_TASK,
@@ -39,3 +46,9 @@ export const getTaskTypes = () =>
 
 export const getTaskPriorities = () =>
   dispatchWrapper(taskRepository.getPriorities, "", SET_PRIORITIES);
+
+export const getTaskComments = (projectId: number) =>
+  dispatchWrapper(taskRepository.getComments, projectId, SET_COMMENTS);
+
+export const projectCreateComment = (comment: CommentCraeteParams) =>
+  dispatchWrapper(taskRepository.createComment, comment, SET_COMMENT);

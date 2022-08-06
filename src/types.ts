@@ -100,7 +100,7 @@ export type ProjectComment = Comment & { projectId: number };
 
 export type TaskComment = Comment & { taskId: number };
 
-export type CommentCraeteParams = { projectId?: number; taskId: number; } & CommentParams;
+export type CommentCraeteParams = { projectId?: number; taskId?: number; } & CommentParams;
 
 
 

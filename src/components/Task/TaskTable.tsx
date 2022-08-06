@@ -3,14 +3,18 @@ import { Button, Modal, Popconfirm, Space, Table, Tooltip } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { Task, Option } from "../../types";
 import TaskForm from "./TaskForm";
-import { useDispatch } from "react-redux";
-import { deleteTask } from "../../store/task/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteTask, getTaskById } from "../../store/task/actions";
+import { TaskRootState } from "../../store/task/reducer";
 
 const TaskTable: React.FC<{ tasks: Task[] }> = ({ tasks }) => {
   const dispatch = useDispatch();
 
   const [taskModalForm, setTaskModalForm] = useState(false);
+  const [taskModalDetail, setTaskModalDetail] = useState(false);
   const [currentTask, setCurrentTask] = useState<Task | null>(null);
+  const [currentTaskId, setCurrentTaskId] = useState<number>(NaN);
+  const tasksDetail =  useSelector((store: TaskRootState) => store.task.tasksDetail);
 
   const onEditTask = (id: number) => {
     const selectedTask = tasks.find((task: Task) => task.id === id) || null;
@@ -20,16 +24,23 @@ const TaskTable: React.FC<{ tasks: Task[] }> = ({ tasks }) => {
   const onDeleteTask = (task: Task) => {
     dispatch(deleteTask(task));
   };
+  const onShowDetail = (id: number) => {
+    if (!tasksDetail[id]) dispatch(getTaskById(id))
+    setCurrentTaskId(id)
+  }
+
   const columns = [
     {
       title: "ID",
       dataIndex: "id",
       key: "id",
+      render: (id: number) => <Button type="link" onClick={() => onShowDetail(id)} >{ id }</Button>,
     },
     {
       title: "Title",
       dataIndex: "title",
       key: "title",
+      render: (title: string, task: Task) => <Button type="link" onClick={() => onShowDetail(task.id)}>{ title }</Button>,
     },
     {
       title: "Description",
@@ -58,7 +69,7 @@ const TaskTable: React.FC<{ tasks: Task[] }> = ({ tasks }) => {
       title: "Actions",
       dataIndex: "priority",
       key: "Priority",
-      render: (priority: Option, task: Task) => (
+      render: (_: Option, task: Task) => (
         <>
         <Space size='small'>
           <Button
@@ -103,6 +114,16 @@ const TaskTable: React.FC<{ tasks: Task[] }> = ({ tasks }) => {
           task={currentTask}
           sendFormData={() => setTaskModalForm(false)}
         />
+      </Modal>
+        <Modal
+        title="Detail task"
+        visible={Boolean(currentTaskId)}
+        onOk={() => setCurrentTaskId(NaN)}
+        onCancel={() => setCurrentTaskId(NaN)}
+        footer={null}
+      >
+             { JSON.stringify(tasksDetail[currentTaskId]) }
+
       </Modal>
       <Table dataSource={tasks} columns={columns} bordered />
     </>

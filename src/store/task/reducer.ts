@@ -15,7 +15,7 @@ import { Option, Task, TaskComment } from "../../types";
 
 export type TasktState = {
     tasks: Task[];
-    tasksDetail: Task[];
+    tasksDetail: { [key: string]: Task };
     tasksByProject: { [key: number]: Task[] };
     statuses: Option[];
     types: Option[];
@@ -31,7 +31,7 @@ export type TaskRootState = {
 const initialState = {
     tasks: [],
     tasksByProject: [],
-    tasksDetail: [],
+    tasksDetail: {},
     statuses: [],
     types: [],
     priorities: [],
@@ -54,7 +54,7 @@ export const taskReducer = (state = initialState, action: actionTypes) => {
             return {
                 ...state, tasksDetail: {
                     ...state.tasksDetail,
-                    [action.payload?.id]: action?.payload
+                    [action.payload?.id.toString()]: action?.payload
                 }
             };
         case ADD_CRAETED_TASK:

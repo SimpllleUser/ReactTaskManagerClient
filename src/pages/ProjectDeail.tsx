@@ -27,7 +27,6 @@ const ProjectDetail: React.FC = () => {
   useEffect(() => {
     dispatch(getProjectById(Number(id)));
     dispatch(getTasksByProjectId(Number(id)));
-    dispatch(getProjectComments(Number(id)));
   }, []);
   const project = useSelector(
     (store: ProjectRootState) => store.project.projectsDetail[Number(id)] || ""
@@ -38,6 +37,10 @@ const ProjectDetail: React.FC = () => {
   const tasks = useSelector(
     (store: TaskRootState) => store.task.tasksByProject[Number(id)] || ""
   );
+
+  const onShowCommentBlock = (value: string | string[]) => {
+    if (value && !comments.length) dispatch(getProjectComments(Number(id)));
+  }
 
   const {
     title = "",
@@ -110,19 +113,20 @@ const ProjectDetail: React.FC = () => {
           />
         </Modal>
       </Row>
-      <Row justify="space-around">
-        <Col span={11}>
+      <Collapse accordion onChange={(value) => onShowCommentBlock(value)}>
+        <Panel header="Comments" key="2">
           <CommentForm
             methodSubmitComment={projectCreateComment}
             authorId={authorId}
             projectId={Number(id)}
             taskId={null} />
-          {comments?.map(
-            (comment: { id: any; }) => <div>
-              <CommentCard key={`comment-key-${comment.id}`} comment={comment} />
-            </div>)}
-        </Col>
-      </Row>
+          <div style={{ maxHeight: '300px', overflowY: 'auto' }}>
+            {comments?.map(
+              (comment: { id: any; }) => <div>
+                <CommentCard key={`comment-key-${comment.id}`} comment={comment} />
+              </div>)}
+          </div>       </Panel>
+      </Collapse>
       <TaskTable tasks={tasks} />
     </>
   );

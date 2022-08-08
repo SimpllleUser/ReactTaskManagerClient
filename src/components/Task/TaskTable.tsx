@@ -6,6 +6,7 @@ import TaskForm from "./TaskForm";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteTask, getTaskById } from "../../store/task/actions";
 import { TaskRootState } from "../../store/task/reducer";
+import Taskdetail from "./TaskDetail";
 
 const TaskTable: React.FC<{ tasks: Task[] }> = ({ tasks }) => {
   const dispatch = useDispatch();
@@ -14,7 +15,7 @@ const TaskTable: React.FC<{ tasks: Task[] }> = ({ tasks }) => {
   const [taskModalDetail, setTaskModalDetail] = useState(false);
   const [currentTask, setCurrentTask] = useState<Task | null>(null);
   const [currentTaskId, setCurrentTaskId] = useState<number>(NaN);
-  const tasksDetail =  useSelector((store: TaskRootState) => store.task.tasksDetail);
+  const tasksDetail = useSelector((store: TaskRootState) => store.task.tasksDetail);
 
   const onEditTask = (id: number) => {
     const selectedTask = tasks.find((task: Task) => task.id === id) || null;
@@ -34,13 +35,13 @@ const TaskTable: React.FC<{ tasks: Task[] }> = ({ tasks }) => {
       title: "ID",
       dataIndex: "id",
       key: "id",
-      render: (id: number) => <Button type="link" onClick={() => onShowDetail(id)} >{ id }</Button>,
+      render: (id: number) => <Button type="link" onClick={() => onShowDetail(id)} >{id}</Button>,
     },
     {
       title: "Title",
       dataIndex: "title",
       key: "title",
-      render: (title: string, task: Task) => <Button type="link" onClick={() => onShowDetail(task.id)}>{ title }</Button>,
+      render: (title: string, task: Task) => <Button type="link" onClick={() => onShowDetail(task.id)}>{title}</Button>,
     },
     {
       title: "Description",
@@ -71,29 +72,29 @@ const TaskTable: React.FC<{ tasks: Task[] }> = ({ tasks }) => {
       key: "Priority",
       render: (_: Option, task: Task) => (
         <>
-        <Space size='small'>
-          <Button
-            type="primary"
-            size="small"
-            onClick={() => onEditTask(task.id)}
-            icon={<EditOutlined key="edit" />}
-          >
-            Edit
-          </Button>
-          <Popconfirm
-            title="Do you wanna delete this task ?"
-            onConfirm={() => onDeleteTask(task)}
-            okText="Yes"
-            cancelText="No"
-          >
-            <Button 
-            type="primary"
-             size="small"
-             icon={<DeleteOutlined key="edit" />}
-             >
-              Delete
+          <Space size='small'>
+            <Button
+              type="primary"
+              size="small"
+              onClick={() => onEditTask(task.id)}
+              icon={<EditOutlined key="edit" />}
+            >
+              Edit
             </Button>
-          </Popconfirm>
+            <Popconfirm
+              title="Do you wanna delete this task ?"
+              onConfirm={() => onDeleteTask(task)}
+              okText="Yes"
+              cancelText="No"
+            >
+              <Button
+                type="primary"
+                size="small"
+                icon={<DeleteOutlined key="edit" />}
+              >
+                Delete
+              </Button>
+            </Popconfirm>
           </Space>
         </>
       ),
@@ -102,6 +103,7 @@ const TaskTable: React.FC<{ tasks: Task[] }> = ({ tasks }) => {
 
   return (
     <>
+      https://ant-cra.cremawork.com/apps/todo/all/435544534
       <Modal
         title="Task form"
         visible={Boolean(currentTask?.id) && taskModalForm}
@@ -115,15 +117,15 @@ const TaskTable: React.FC<{ tasks: Task[] }> = ({ tasks }) => {
           sendFormData={() => setTaskModalForm(false)}
         />
       </Modal>
-        <Modal
+      <Modal
         title="Detail task"
-        visible={Boolean(currentTaskId)}
+        width='auto'
+        visible={Boolean(currentTaskId) && Boolean(tasksDetail[currentTaskId]?.id)}
         onOk={() => setCurrentTaskId(NaN)}
         onCancel={() => setCurrentTaskId(NaN)}
         footer={null}
       >
-             { JSON.stringify(tasksDetail[currentTaskId]) }
-
+        <Taskdetail task={tasksDetail[currentTaskId]} />
       </Modal>
       <Table dataSource={tasks} columns={columns} bordered />
     </>

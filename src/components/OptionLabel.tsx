@@ -14,7 +14,7 @@ const OptionLabel: React.FC<any> = ({ option }: { option: Option }) => {
 
     const colorStatus = typeById[option?.id] || 'default'; 
 
-    return (<Badge status={`${colorStatus}`} text={option.name} />)
+    return (<Badge status={`${colorStatus}`} text={option?.name || ''} />)
 };
 
 export default OptionLabel;

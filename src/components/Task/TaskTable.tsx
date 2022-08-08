@@ -103,7 +103,6 @@ const TaskTable: React.FC<{ tasks: Task[] }> = ({ tasks }) => {
 
   return (
     <>
-      https://ant-cra.cremawork.com/apps/todo/all/435544534
       <Modal
         title="Task form"
         visible={Boolean(currentTask?.id) && taskModalForm}

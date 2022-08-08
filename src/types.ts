@@ -1,106 +1,111 @@
 export interface OptionGlobal {
-    id: number;
-    value: number;
-    name: number;
+  id: number;
+  value: number;
+  name: number;
 }
 
 export interface ProjectCreateParams {
-    title: string;
-    description: string;
-    authorId: number;
-    statusId: number;
+  title: string;
+  description: string;
+  authorId: number;
+  statusId: number;
 }
 export type ProjectDefault = ProjectCreateParams & {
-    id: number
-}
+  id: number;
+};
 
 export type ProjectBase = ProjectDefault & {
-    author: User;
-    status: OptionGlobal;
-    token: number;
+  author: User;
+  status: OptionGlobal;
+  token: number;
 };
 
 export type ProjectDetail = ProjectBase & {
-    statusId: number;
-    createdAt: string;
-    updatedAt: string;
-    team: User[];
-    status: OptionGlobal;
-    tasks: Task[];
-}
+  statusId: number;
+  createdAt: string;
+  updatedAt: string;
+  team: User[];
+  status: OptionGlobal;
+  tasks: Task[];
+};
 
 export interface User {
-    id: number;
-    login: string;
-    name: string;
-    isActive: boolean;
+  id: number;
+  login: string;
+  name: string;
+  isActive: boolean;
 }
 export interface Task {
-    id: number;
-    title: string;
-    description: string;
-    authorId: number;
-    projectId: number;
-    statusId: number;
-    typeId: number;
-    priorityId: number;
-    executorId: number;
-    createdAt: string;
-    updatedAt: string;
-    author: User;
-    project: ProjectDetail;
-    status: OptionGlobal;
-    type: OptionGlobal;
-    priority: OptionGlobal;
-    executor: User;
+  id: number;
+  title: string;
+  description: string;
+  authorId: number;
+  projectId: number;
+  statusId: number;
+  typeId: number;
+  priorityId: number;
+  executorId: number;
+  createdAt: string;
+  updatedAt: string;
+  author: User;
+  project: ProjectDetail;
+  status: OptionGlobal;
+  type: OptionGlobal;
+  priority: OptionGlobal;
+  executor: User;
 }
 
 export type UserAuthentificated = User & { token: string };
 export interface Option {
-    id: number | string;
-    name: string;
-    value: number;
-};
+  id: number | string;
+  name: string;
+  value: number;
+}
 
 export interface TaskCreateParams {
-    title: string;
-    description: string;
-    authorId: number;
-    typeId: number;
-    priorityId: number;
-    executorId: number;
-    statusId: number;
-    projectId: number;
+  title: string;
+  description: string;
+  authorId: number;
+  typeId: number;
+  priorityId: number;
+  executorId: number;
+  statusId: number;
+  projectId: number;
 }
 export type TaskUpdateParams = TaskCreateParams & { id: number };
 
 export type ActionUserWithProjectParams = {
-    projectId: number;
-    userIds: string[];
+  projectId: number;
+  userIds: string[];
 };
 export type ActionUserWithProjectResult = {
-    projectId: number;
-    users: User[];
+  projectId: number;
+  users: User[];
 };
 
-type  CommentParams  = {
-    authorId: number;
-    body: string;
-}
+type CommentParams = {
+  authorId: number;
+  body: string;
+};
 
-
-type  Comment = CommentParams &  {
-    id: number;
-    author: User;
-    updatedAt: Date;
-    createdAt: Date;
-} 
+type Comment = CommentParams & {
+  id: number;
+  author: User;
+  updatedAt: Date;
+  createdAt: Date;
+};
 
 export type ProjectComment = Comment & { projectId: number };
 
 export type TaskComment = Comment & { taskId: number };
 
-export type CommentCraeteParams = { projectId?: number; taskId?: number; } & CommentParams;
-
-
-
+export type CommentCraeteParams = {
+  projectId?: number;
+  taskId?: number;
+} & CommentParams;
+export type ColorTypes =
+  | "default"
+  | "success"
+  | "error"
+  | "warning"
+  | "processing";

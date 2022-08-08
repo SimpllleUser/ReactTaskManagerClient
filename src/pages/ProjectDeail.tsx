@@ -14,6 +14,7 @@ import UserTable from "../components/User/UserTable";
 import CommentForm from "../components/CommentForm";
 import { UserRootState } from "../store/user/reducer";
 import CommentCard from "../components/CommentCard";
+import OptionLabel from "../components/OptionLabel";
 
 const { Panel } = Collapse;
 
@@ -58,7 +59,7 @@ const ProjectDetail: React.FC = () => {
           <b>{title}</b>
         </Col>
         <Col span={4}>{description}</Col>
-        <Col span={4}>{status?.name}</Col>
+        <Col span={4}><OptionLabel option={project.status} /></Col>
         <Col span={4}>
           <Space size="small">
             <Button

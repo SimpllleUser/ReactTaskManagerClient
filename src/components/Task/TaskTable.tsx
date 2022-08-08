@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteTask, getTaskById } from "../../store/task/actions";
 import { TaskRootState } from "../../store/task/reducer";
 import Taskdetail from "./TaskDetail";
+import OptionLabel from "../OptionLabel";
 
 const TaskTable: React.FC<{ tasks: Task[] }> = ({ tasks }) => {
   const dispatch = useDispatch();
@@ -52,19 +53,19 @@ const TaskTable: React.FC<{ tasks: Task[] }> = ({ tasks }) => {
       title: "Type",
       dataIndex: "type",
       key: "type",
-      render: (option: Option) => option.name,
+      render: (option: Option) => <OptionLabel option={option} />,
     },
     {
       title: "Status",
       dataIndex: "status",
       key: "status",
-      render: (option: Option) => option.name,
+      render: (option: Option) => <OptionLabel option={option} />,
     },
     {
       title: "Priority",
       dataIndex: "priority",
       key: "Priority",
-      render: (option: Option) => option.name,
+      render: (option: Option) => <OptionLabel option={option} />,
     },
     {
       title: "Actions",

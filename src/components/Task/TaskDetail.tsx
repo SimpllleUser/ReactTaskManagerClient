@@ -8,6 +8,7 @@ import { UserRootState } from "../../store/user/reducer";
 import { TaskRootState } from "../../store/task/reducer";
 import CommentForm from "../CommentForm";
 import CommentCard from "../CommentCard";
+import OptionLabel from "../OptionLabel";
 
 
 const { Panel } = Collapse;
@@ -38,19 +39,25 @@ const Taskdetail: React.FC<{ task: Task }> = ({ task }) => {
       hoverable
     >
       <div className="task-detail__body">
-      <Descriptions>
+        <Descriptions>
           <Descriptions.Item label="Description"> {task.description}</Descriptions.Item>
         </Descriptions>
         <Descriptions>
-          <Descriptions.Item label="Status"> {task.status.name}</Descriptions.Item>
-          <Descriptions.Item label="Type"> {task.type.name}</Descriptions.Item>
-          <Descriptions.Item label="Priority"> {task.priority.name}</Descriptions.Item>
+          <Descriptions.Item label="Status">
+            <OptionLabel option={task.status} />
+          </Descriptions.Item>
+          <Descriptions.Item label="Type">
+            <OptionLabel option={task.type} />
+          </Descriptions.Item>
+          <Descriptions.Item label="Priority">
+            <OptionLabel option={task.priority} />
+          </Descriptions.Item>
         </Descriptions>
         <Descriptions>
           <Descriptions.Item label="Author"> {task.author.name}</Descriptions.Item>
           <Descriptions.Item label="Executor"> {task.executor.name}</Descriptions.Item>
         </Descriptions>
-    
+
       </div>
       <Collapse accordion onChange={(value) => onShowCommentBlock(value)}>
         <Panel header="Comments" key={`task-${task.id}-comment-block`}>
@@ -64,7 +71,8 @@ const Taskdetail: React.FC<{ task: Task }> = ({ task }) => {
               (comment: { id: any; }) => <div>
                 <CommentCard key={`comment-key-${comment.id}`} comment={comment} />
               </div>)}
-          </div>       </Panel>
+          </div>
+        </Panel>
       </Collapse>
     </Card>
   );

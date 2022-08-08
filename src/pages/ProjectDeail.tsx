@@ -14,7 +14,6 @@ import UserTable from "../components/User/UserTable";
 import CommentForm from "../components/CommentForm";
 import { UserRootState } from "../store/user/reducer";
 import CommentCard from "../components/CommentCard";
-import { ProjectComment } from "../types";
 
 const { Panel } = Collapse;
 

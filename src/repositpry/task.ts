@@ -37,8 +37,8 @@ export class taskRepository {
         const response: any = await axios.get(`${url}/priorities/all`);
         return response
     }
-    static async getComments(projectId: number): Promise<any> {
-        const response: any = await axios.get(`${url}/${projectId}/comment/all`,);
+    static async getComments(taskId: number): Promise<any> {
+        const response: any = await axios.get(`${url}/${taskId}/comment/all`,);
         return response;
       }
       static async createComment(params: CommentCraeteParams): Promise<any> {

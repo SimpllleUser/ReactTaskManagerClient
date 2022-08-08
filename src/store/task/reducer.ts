@@ -100,7 +100,7 @@ export const taskReducer = (state = initialState, action: actionTypes) => {
                 const comment: TaskComment = action.payload[0];
                 return {
                   ...state,
-                  projectComments: {
+                  taskComments: {
                     ...state.taskComments,
                     [comment.taskId]: action.payload,
                   },
@@ -111,12 +111,12 @@ export const taskReducer = (state = initialState, action: actionTypes) => {
                 const createdComment = action.payload;
                 const currentProjectCommentList =
                   [
-                    ...state.taskComments[createdComment.taskId],
+                    ...state.taskComments[createdComment.taskId] || [],
                     createdComment,
                   ] || [];
                 return {
                   ...state,
-                  projectComments: {
+                  taskComments: {
                     ...state.taskComments,
                     [createdComment.taskId]: currentProjectCommentList,
                   },

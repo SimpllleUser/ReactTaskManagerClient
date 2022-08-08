@@ -50,5 +50,5 @@ export const getTaskPriorities = () =>
 export const getTaskComments = (projectId: number) =>
   dispatchWrapper(taskRepository.getComments, projectId, SET_COMMENTS);
 
-export const projectCreateComment = (comment: CommentCraeteParams) =>
+export const taskCreateComment = (comment: CommentCraeteParams) =>
   dispatchWrapper(taskRepository.createComment, comment, SET_COMMENT);

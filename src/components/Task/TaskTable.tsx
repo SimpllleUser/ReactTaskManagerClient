@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Modal, Popconfirm, Space, Table, Tooltip } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
-import { Task, Option } from "../../types";
+import { Task, Option, User } from "../../types";
 import TaskForm from "./TaskForm";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteTask, getTaskById } from "../../store/task/actions";
@@ -9,7 +9,7 @@ import { TaskRootState } from "../../store/task/reducer";
 import Taskdetail from "./TaskDetail";
 import OptionLabel from "../OptionLabel";
 
-const TaskTable: React.FC<{ tasks: Task[] }> = ({ tasks }) => {
+const TaskTable: React.FC<{ tasks: Task[], users: User[] }> = ({ tasks, users }) => {
   const dispatch = useDispatch();
 
   const [taskModalForm, setTaskModalForm] = useState(false);
@@ -112,6 +112,7 @@ const TaskTable: React.FC<{ tasks: Task[] }> = ({ tasks }) => {
         footer={null}
       >
         <TaskForm
+          users={users}
           projectId={currentTask?.projectId || null}
           task={currentTask}
           sendFormData={() => setTaskModalForm(false)}

@@ -109,8 +109,7 @@ const ProjectDetail: React.FC = () => {
           <TaskForm
             projectId={project.id}
             task={null}
-            sendFormData={() => setTasktModalForm(false)}
-          />
+            sendFormData={() => setTasktModalForm(false)} users={project.team} />
         </Modal>
       </Row>
       <Collapse accordion onChange={(value) => onShowCommentBlock(value)}>
@@ -127,7 +126,7 @@ const ProjectDetail: React.FC = () => {
               </div>)}
           </div>       </Panel>
       </Collapse>
-      <TaskTable tasks={tasks} />
+      <TaskTable users={project.team} tasks={tasks} />
     </>
   );
 };

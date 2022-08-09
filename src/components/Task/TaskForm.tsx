@@ -1,9 +1,9 @@
-import { Button, Col, Form, FormInstance, Input, Row } from "antd";
+import { Button, Col, Form, FormInstance, Input, Row, Select } from "antd";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AuthRootState } from "../../store/auth/reducer";
 import { createTask, updatedTask } from "../../store/task/actions";
-import { Task } from "../../types";
+import { Task, User } from "../../types";
 import FormSelectorGlobal from "../FormSelectorGlobal";
 
 const { TextArea } = Input;
@@ -11,8 +11,9 @@ const { TextArea } = Input;
 const TaskForm: React.FC<{
   task: Task | null;
   projectId: number | null;
+  users: User[] | null;
   sendFormData: () => void;
-}> = ({ task, projectId, sendFormData }) => {
+}> = ({ task, projectId, users, sendFormData }) => {
   const dispatch = useDispatch();
   const userActive = useSelector(
     (store: AuthRootState) => store.auth.userActive
@@ -27,7 +28,6 @@ const TaskForm: React.FC<{
     const params = {
       projectId,
       authorId,
-      executorId: authorId,
       statusId: status,
       typeId: type,
       priorityId: priority,
@@ -49,7 +49,7 @@ const TaskForm: React.FC<{
   };
   useEffect(() => {
     form.setFieldsValue({ ...taskDefault, ...task });
-  }, []);
+  }, [task]);
 
   return (
     <>
@@ -86,7 +86,7 @@ const TaskForm: React.FC<{
         >
           <TextArea />
         </Form.Item>
-        
+
         <FormSelectorGlobal
           label="Status"
           name="statusId"
@@ -114,6 +114,22 @@ const TaskForm: React.FC<{
           value={task?.type || null}
           onSelect={setType}
         />
+        <Form.Item name="executorId" label="executor" rules={[{
+          required: true,
+          message: `Please select user`,
+        }]}>
+          <Select
+          // onFocus={onActiveSelect}
+          // onChange={handleChange}
+          >
+            {users && users?.map(
+              (option: User) => <Select.Option
+                key={`${option.id}-${option.name}`}
+                value={option.id
+                }>{option.name}</Select.Option>,
+            )}
+          </Select>
+        </Form.Item>
 
         <Form.Item>
           <Row>

@@ -61,7 +61,7 @@ export const projectReducer = (state = initialState, action: actionTypes) => {
       const currentProject: ProjectDetail = state.projectsDetail[projectId];
       const updatedProject = {
         ...currentProject,
-        team: [...currentProject?.team, ...users],
+        team: [...currentProject?.team || [], ...users || []],
       };
       return {
         ...state,
@@ -72,7 +72,7 @@ export const projectReducer = (state = initialState, action: actionTypes) => {
       };
     case UNSET_USERS:
       const params = action.payload;
-      const userIds = params.users.map((user) => user.id);
+      const userIds = params.users?.map((user) => user?.id)?.filter(Boolean) || [];
       const currentProjectOnDeleteUsers: ProjectDetail =
         state.projectsDetail[params.projectId];
       const updatedProjectAfterDeleteUsers = {

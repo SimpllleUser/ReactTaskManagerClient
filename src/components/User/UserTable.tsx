@@ -9,14 +9,19 @@ import { addUsersToProject, removeUsersFromProject } from "../../store/project/a
 
 const UserTable: React.FC<{
   projectId: number;
+  authorId: number;
   users: User[]
 }> = ({
   projectId,
+  authorId,
   users }) => {
     const dispatch = useDispatch();
     const getUser = ({ id, name }: User): TransferItem => ({ key: id.toString(), title: name });
     const allUsers = useSelector((store: UserRootState) => store.user.users);
-    const transfetAllUsers: TransferItem[] = allUsers.map(getUser);
+    const transfetAllUsers: TransferItem[] = allUsers.map(getUser)?.map((user: TransferItem) => ({
+      ...user,
+      disabled: Number(user.key) === authorId,
+    }));
     const transfetProjectUsers: TransferItem[] = users.map(getUser);
     const [teamEditModal, setTeamEditModal] = useState(false);
     const [targetKeys, setTargetKeys] = useState<any>(transfetProjectUsers.map(({ key }) => key));

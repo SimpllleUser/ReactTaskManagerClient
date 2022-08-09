@@ -83,7 +83,7 @@ const ProjectDetail: React.FC = () => {
       </Row>
       <Collapse accordion>
         <Panel header="Team" key="1">
-          <UserTable projectId={project.id} users={project.team} ></UserTable>
+          <UserTable projectId={project.id} authorId={project.authorId} users={project.team} ></UserTable>
         </Panel>
       </Collapse>
       <Row>

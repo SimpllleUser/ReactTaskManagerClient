@@ -17,6 +17,7 @@ import {
   SET_USERS,
   UNSET_USERS,
 } from "./types";
+import { message, notification } from "antd";
 
 export const getProjectsByAuthor = (userId: number) =>
   dispatchWrapper(
@@ -27,18 +28,30 @@ export const getProjectsByAuthor = (userId: number) =>
 export const getProjectById = (projectId: number) =>
   dispatchWrapper(ProjectRepository.findOneById, projectId, SET_PROJECT);
 
-export const createProject = (projectCreateParams: ProjectCreateParams) =>
-  dispatchWrapper(
+export const createProject = (projectCreateParams: ProjectCreateParams) => {
+  notification.success({
+    message: 'Project was created',
+  })
+  return dispatchWrapper(
     ProjectRepository.create,
     projectCreateParams,
     ADD_CRAETED_PROJECT
   );
+}
 
-export const updatedProject = (projectUpdateParams: ProjectDetail) =>
-  dispatchWrapper(ProjectRepository.update, projectUpdateParams, SET_PROJECT);
+export const updatedProject = (projectUpdateParams: ProjectDetail) => {
+  notification.success({
+    message: 'Project was updated',
+  });
+  return dispatchWrapper(ProjectRepository.update, projectUpdateParams, SET_PROJECT);
+}
 
-export const deleteProject = (id: number) =>
-  dispatchWrapper(ProjectRepository.delete, id, DELETE_PROJECT);
+export const deleteProject = (id: number) => {
+  notification.success({
+    message: 'Project was delted',
+  })
+  return dispatchWrapper(ProjectRepository.delete, id, DELETE_PROJECT);
+}
   
 export const getProjectStatuses = () =>
   dispatchWrapper(ProjectRepository.getStatuses, "", SET_STATUSES);
@@ -58,5 +71,4 @@ export const getProjectComments =
 export const projectCreateComment =
   (comment: CommentCraeteParams) =>
   dispatchWrapper(ProjectRepository.createComment, comment, SET_COMMENT);
-  /// ! CREATE PROJECT COMMENT
 

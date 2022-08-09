@@ -50,6 +50,7 @@ const ProjectDetail: React.FC = () => {
 
   return (
     <>
+      ADD ACTION COMMENT ON SOME CHANGE WITH ANTITY 
       <Row
         justify="space-around"
         align="middle"

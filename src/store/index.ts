@@ -6,7 +6,7 @@ import { projectReducer } from "./project/reducer";
 import { taskReducer } from "./task/reducer";
 import { userReducer } from "./user/reducer";
 import { LOG_OUT } from "./auth/types";
-import { message } from "antd";
+import { message, notification } from "antd";
 
 const rootReducer = combineReducers({
     auth: authReducer,
@@ -15,6 +15,9 @@ const rootReducer = combineReducers({
     user: userReducer,
 });
 
+notification.config({
+    duration: 1.3,
+  });
 
 
 export const dispatchWrapper = (method: any, params: any, typeDispatch: any, customParams?: any) => async (dispatch: any) => {

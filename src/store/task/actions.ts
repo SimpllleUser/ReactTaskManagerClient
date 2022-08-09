@@ -1,3 +1,4 @@
+import { notification } from "antd";
 import { dispatchWrapper } from "..";
 import { taskRepository } from "../../repositpry/task";
 import {
@@ -29,14 +30,34 @@ export const getTasksByProjectId = (projectId: number) =>
 export const getTaskById = (taskId: number) =>
   dispatchWrapper(taskRepository.findOneById, taskId, SET_TASK);
 
-export const createTask = (taskCreateParams: TaskCreateParams) =>
-  dispatchWrapper(taskRepository.create, taskCreateParams, ADD_CRAETED_TASK);
+export const createTask = (taskCreateParams: TaskCreateParams) => {
+  notification.success({
+    message: "Task was created",
+  });
+  return dispatchWrapper(
+    taskRepository.create,
+    taskCreateParams,
+    ADD_CRAETED_TASK
+  );
+};
 
-export const updatedTask = (taskUpdateParams: TaskUpdateParams) =>
-  dispatchWrapper(taskRepository.update, taskUpdateParams, SET_UPDATED_TASK);
+export const updatedTask = (taskUpdateParams: TaskUpdateParams) => {
+  notification.success({
+    message: "Task was updated",
+  });
+  return dispatchWrapper(
+    taskRepository.update,
+    taskUpdateParams,
+    SET_UPDATED_TASK
+  );
+};
 
-export const deleteTask = (task: Task) =>
-  dispatchWrapper(taskRepository.delete, task, DELETE_TASK, task);
+export const deleteTask = (task: Task) => {
+  notification.success({
+    message: "Task was deleted",
+  });
+  return dispatchWrapper(taskRepository.delete, task, DELETE_TASK, task);
+};
 
 export const getTaskStatuses = () =>
   dispatchWrapper(taskRepository.getStatuses, "", SET_STATUSES);

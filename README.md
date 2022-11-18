@@ -1,6 +1,6 @@
 # Getting Started with Create React App
 
-# Design link https://www.behance.net/gallery/135980477/Dashboard-design?tracking_source=search_projects%7Ctask+manager
+# Design [link](https://www.behance.net/gallery/135980477/Dashboard-design?tracking_source=search_projects%7Ctask+manager)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

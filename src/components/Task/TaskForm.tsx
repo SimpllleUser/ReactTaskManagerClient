@@ -39,7 +39,7 @@ const TaskForm: React.FC<{
     sendFormData();
   };
   const setStatus = (value: number) => {
-    value && form.setFieldsValue({ priorityId: value });
+    value && form.setFieldsValue({ statusId: value });
   };
   const setPriority = (value: number) => {
     value && form.setFieldsValue({ priorityId: value });
@@ -48,7 +48,7 @@ const TaskForm: React.FC<{
     value && form.setFieldsValue({ typeId: value });
   };
   useEffect(() => {
-    form.setFieldsValue({ ...taskDefault, ...task });
+    task?.id && form.setFieldsValue({ ...taskDefault, ...task });
   }, [task]);
 
   return (

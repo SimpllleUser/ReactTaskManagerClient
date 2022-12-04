@@ -24,8 +24,8 @@ const ProjectForm: React.FC<{
   const projectDefault: ProjectCreateParams | null = {
     title: project?.title || "",
     description: project?.description || "",
-    statusId: project?.statusId || 999,
-    authorId: project?.authorId || 999,
+    statusId: project?.statusId || NaN,
+    authorId: project?.authorId || NaN,
   };
   const isEditMode = Boolean(project?.id);
   const [form]: [FormInstance<any>] = Form.useForm();
@@ -45,7 +45,7 @@ const ProjectForm: React.FC<{
   };
 
   useEffect(() => {
-    form.setFieldsValue(projectDefault);
+    project?.id && form.setFieldsValue(projectDefault);
   });
 
   return (

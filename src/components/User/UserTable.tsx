@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, Modal, Row, Space, Table, Transfer } from "antd";
+import { EditOutlined } from "@ant-design/icons";
 import { User } from "../../types";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsers } from "../../store/user/actions";
@@ -67,6 +68,14 @@ const UserTable: React.FC<{
 
     return (
       <>
+        <Row align='middle' justify='end'>
+          <Space style={{ paddingBottom: '15px' }}>
+
+            <Button type="primary"
+             icon={<EditOutlined key="edit" />}
+              size="small" onClick={() => { setTeamEditModal(true) }}>Edit</Button>
+          </Space>
+        </Row>
         <Row>
           <Modal
             title="Edit team"
@@ -87,9 +96,6 @@ const UserTable: React.FC<{
               style={{ marginBottom: 16 }}
             />
           </Modal>
-          <Space style={{ marginBottom: 16 }}>
-            <Button onClick={() => { setTeamEditModal(true) }}>Edit</Button>
-          </Space>
         </Row>
         <Table dataSource={users} columns={columns} bordered />
 

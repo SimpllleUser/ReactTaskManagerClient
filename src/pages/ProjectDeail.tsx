@@ -1,4 +1,4 @@
-import { Button, Col, Modal, Row, Space, Collapse } from "antd";
+import { Button, Col, Modal, Row, Space, Collapse, Tabs } from "antd";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -45,88 +45,92 @@ const ProjectDetail: React.FC = () => {
   const {
     title = "",
     description = "",
-    status = { id: 9999, name: "" },
+    status = { id: NaN, name: "" },
   } = project;
 
   return (
     <>
-      <Row
-        justify="space-around"
-        align="middle"
-        style={{ padding: "12px 0px" }}
-      >
-        <Col span={4}>
-          <b>{title}</b>
-        </Col>
-        <Col span={4}>{description}</Col>
-        <Col span={4}><OptionLabel option={project.status} /></Col>
-        <Col span={4}>
-          <Space size="small">
-            <Button
-              type="primary"
-              size="small"
-              onClick={() => setProjectModalForm(true)}
-              icon={<EditOutlined key="edit" />}
+      <Tabs>
+        <Tabs.TabPane tab="Detail" key="item-1">
+          <Row
+            justify="space-around"
+            align="middle"
+            style={{ padding: "12px 0px" }}
+          >
+            <Col span={4}>
+              <b>{title}</b>
+            </Col>
+            <Col span={4}>{description}</Col>
+            <Col span={4}><OptionLabel option={project.status} /></Col>
+            <Col span={4}>
+              <Space size="small">
+                <Button
+                  type="primary"
+                  size="small"
+                  onClick={() => setProjectModalForm(true)}
+                  icon={<EditOutlined key="edit" />}
+                >
+                  Edit
+                </Button>
+                <Button
+                  type="primary"
+                  size="small"
+                  icon={<PlusOutlined />}
+                  onClick={() => setTasktModalForm(true)}
+                >
+                  Task
+                </Button>
+              </Space>
+            </Col>
+          </Row>
+          <Row>
+            <Modal
+              title="Projetc form"
+              visible={projectModalForm}
+              onOk={() => setProjectModalForm(false)}
+              onCancel={() => setProjectModalForm(false)}
+              footer={null}
             >
-              Edit
-            </Button>
-            <Button
-              type="primary"
-              size="small"
-              icon={<PlusOutlined />}
-              onClick={() => setTasktModalForm(true)}
+              <ProjectForm
+                project={project}
+                sendFormData={() => setProjectModalForm(false)}
+              />
+            </Modal>
+            <Modal
+              title="Task form"
+              visible={taskModalForm}
+              onOk={() => setTasktModalForm(false)}
+              onCancel={() => setTasktModalForm(false)}
+              footer={null}
             >
-              Task
-            </Button>
-          </Space>
-        </Col>
-      </Row>
-      <Collapse accordion>
-        <Panel header="Team" key="1">
+              <TaskForm
+                projectId={project.id}
+                task={null}
+                sendFormData={() => setTasktModalForm(false)} users={project.team} />
+            </Modal>
+          </Row>
+          <TaskTable users={project.team} tasks={tasks} />
+          <Collapse accordion onChange={(value) => onShowCommentBlock(value)}>
+            <Panel header="Comments" key="2">
+              <CommentForm
+                methodSubmitComment={projectCreateComment}
+                authorId={authorId}
+                projectId={Number(id)}
+                taskId={null} />
+              <div style={{ maxHeight: '300px', overflowY: 'auto' }}>
+                {comments?.map(
+                  (comment: { id: any; }) => <div>
+                    <CommentCard key={`comment-key-${comment.id}`} comment={comment} />
+                  </div>)}
+              </div>
+            </Panel>
+          </Collapse>
+        </Tabs.TabPane>
+        <Tabs.TabPane tab="Team" key="item-2">
           <UserTable projectId={project.id} authorId={project.authorId} users={project.team} ></UserTable>
-        </Panel>
-      </Collapse>
-      <Row>
-        <Modal
-          title="Projetc form"
-          visible={projectModalForm}
-          onOk={() => setProjectModalForm(false)}
-          onCancel={() => setProjectModalForm(false)}
-          footer={null}
-        >
-          <ProjectForm
-            project={project}
-            sendFormData={() => setProjectModalForm(false)}
-          />
-        </Modal>
-        <Modal
-          title="Task form"
-          visible={taskModalForm}
-          onOk={() => setTasktModalForm(false)}
-          onCancel={() => setTasktModalForm(false)}
-          footer={null}
-        >
-          <TaskForm
-            projectId={project.id}
-            task={null}
-            sendFormData={() => setTasktModalForm(false)} users={project.team} />
-        </Modal>
-      </Row>
-      <Collapse accordion onChange={(value) => onShowCommentBlock(value)}>
-        <Panel header="Comments" key="2">
-          <CommentForm
-            methodSubmitComment={projectCreateComment}
-            authorId={authorId}
-            projectId={Number(id)}
-            taskId={null} />
-          <div style={{ maxHeight: '300px', overflowY: 'auto' }}>
-            {comments?.map(
-              (comment: { id: any; }) => <div>
-                <CommentCard key={`comment-key-${comment.id}`} comment={comment} />
-              </div>)}
-          </div>       </Panel>
-      </Collapse>
-      <TaskTable users={project.team} tasks={tasks} />
+        </Tabs.TabPane>
+      </Tabs>
+
     </>
   );
 };

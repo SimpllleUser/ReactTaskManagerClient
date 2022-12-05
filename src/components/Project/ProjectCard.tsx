@@ -13,27 +13,28 @@ const ProjectCard: React.FC<{ project: ProjectBase }> = ({ project }) => {
     <Card
       className="project-card"
       hoverable
-      title={project.title}
-      extra={[<Link to={`project/${project.id}`}>Detail</Link>]}
+      title={<div className="project-card__title">
+        <Link to={`project/${project.id}`}>{project.title}</Link>
+      </div>}
       style={{ minWidth: "300px" }}
     >
       <div className="project-card__description">{project.description}</div>
       <div className="project-card__actions">
-      <Popconfirm
-            title="Do you wanna delete this project ?"
-            onConfirm={() => dispatch(deleteProject(project.id))}
-            okText="Yes"
-            cancelText="No"
-          >
-            <Button 
+        <Popconfirm
+          title="Do you wanna delete this project ?"
+          onConfirm={() => dispatch(deleteProject(project.id))}
+          okText="Yes"
+          cancelText="No"
+        >
+          <Button
             type="primary"
-             size="small"
-             icon={<DeleteOutlined key="edit" />}
-             >
-              Delete
-            </Button>
-          </Popconfirm>
-    
+            size="small"
+            icon={<DeleteOutlined key="edit" />}
+          >
+            Delete
+          </Button>
+        </Popconfirm>
+
       </div>
     </Card>
   );

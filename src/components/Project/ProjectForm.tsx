@@ -1,16 +1,19 @@
-import { Button, Col, Form, FormInstance, Input, Row, Select } from "antd";
+import { Button, Col, Form, FormInstance, Input, Row } from "antd";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AuthRootState } from "../../store/auth/reducer";
 import {
   createProject,
-  getProjectStatuses,
   updatedProject,
 } from "../../store/project/actions";
 import { ProjectRootState } from "../../store/project/reducer";
-import { ProjectBase, ProjectCreateParams, Option } from "../../types";
+import { ProjectBase, ProjectCreateParams } from "../../types";
 import FormSelectorGlobal from "../FormSelectorGlobal";
+
+import validationRules from '../../utils/validation-rules';
+
 const { TextArea } = Input;
+
 
 const ProjectForm: React.FC<{
   project: ProjectBase | null;
@@ -54,44 +57,26 @@ const ProjectForm: React.FC<{
         <Form.Item
           name="title"
           label="Title"
-          rules={[
-            {
-              required: true,
-              message: "Please input project title",
-            },
-            {
-              min: 10,
-              message: "Min length 5",
-            },
-          ]}
+          rules={validationRules.taskFrom.title}
         >
           <Input />
         </Form.Item>
         <Form.Item
           name="description"
           label="Description"
-          rules={[
-            {
-              required: true,
-              message: "Please input project title",
-            },
-            {
-              min: 10,
-              message: "Min length 10",
-            },
-          ]}
+          rules={validationRules.taskFrom.description}
         >
           <TextArea />
         </Form.Item>
-          <FormSelectorGlobal
-            value={project?.status || null}
-            name='statusId'
-            label='Status'
-            domainName='project'
-            entityName='status'
-            selectorName='statuses'
-            onSelect={setStatus}
-          ></FormSelectorGlobal>
+        <FormSelectorGlobal
+          value={project?.status || null}
+          name='statusId'
+          label='Status'
+          domainName='project'
+          entityName='status'
+          selectorName='statuses'
+          onSelect={setStatus}
+        ></FormSelectorGlobal>
         <Form.Item>
           <Row>
             <Col span={24} style={{ textAlign: "right" }}>

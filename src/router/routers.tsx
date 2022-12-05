@@ -1,7 +1,7 @@
 import Auth from "../pages/Auth";
 import Home from "../pages/Home";
 import AuthLayout from "../layouts/AuthLayout";
-import BaseLayout from "../layouts/BaseLayout";
+import BaseLayout from "../layouts/BaseLayout/BaseLayout";
 import ProjectDetail from "../pages/ProjectDeail";
 
 export type RouterApp = {

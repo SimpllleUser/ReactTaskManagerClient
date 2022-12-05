@@ -18,7 +18,14 @@ const BaseLayout: React.FC = ({ children }) => {
   return (
     <Layout style={{ height: '90vh' }}>
       <Sider trigger={null} collapsible collapsed={collapsed}>
-        <div className="logo">Task manager</div>
+        <div className="logo">
+          <b>
+          <div className='logo-block'>
+          <div>T</div>
+          { !collapsed && <div>ask manager</div> }
+          </div> 
+          </b>
+          </div>
         <Menu
           theme="dark"
           mode="inline"

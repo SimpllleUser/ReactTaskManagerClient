@@ -1,5 +1,6 @@
 import { Layout, Menu } from 'antd';
 import React, { useState } from 'react';
+import { useHistory } from "react-router-dom";
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -11,6 +12,7 @@ import './BaseLayout.css';
 const { Header, Sider, Content } = Layout;
 
 const BaseLayout: React.FC = ({ children }) => {
+  const history = useHistory();
   const [collapsed, setCollapsed] = useState(false);
 
   return (
@@ -26,6 +28,7 @@ const BaseLayout: React.FC = ({ children }) => {
               key: 'project',
               icon: <FolderOutlined />,
               label: 'Projects',
+              onClick: () => history.push('/project'),
             },
             {
               key: 'task',

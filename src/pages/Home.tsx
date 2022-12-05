@@ -44,11 +44,14 @@ const Home: React.FC = () => {
                 </Col>
             </Row>
         </div>
-        <Space align="center" wrap size={[8, 16]}>
-            {projects.map((project) => {
-                return <ProjectCard key={project.id} project={project} />;
-            })}
-        </Space>
+
+        <Row justify="start">
+            <Space align="center" wrap size={[8, 16]}>
+                {projects.map((project) => {
+                    return <ProjectCard key={project.id} project={project} />;
+                })}
+            </Space>
+        </Row>
 
         <Modal
             title="Projetc form"

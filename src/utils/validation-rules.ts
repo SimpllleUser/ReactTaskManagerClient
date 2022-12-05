@@ -28,6 +28,10 @@ const description: Rule[] = [
 ];
 
 const rules = {
+    project: {
+        title,
+        description,
+    },
     taskFrom: {
         title,
         description,

@@ -5,6 +5,8 @@ import { AuthRootState } from "../../store/auth/reducer";
 import { createTask, updatedTask } from "../../store/task/actions";
 import { Task, User } from "../../types";
 import FormSelectorGlobal from "../FormSelectorGlobal";
+import validationRules from '../../utils/validation-rules';
+
 
 const { TextArea } = Input;
 
@@ -57,32 +59,14 @@ const TaskForm: React.FC<{
         <Form.Item
           name="title"
           label="Title"
-          rules={[
-            {
-              required: true,
-              message: "Please input task title",
-            },
-            {
-              min: 10,
-              message: "Min length 5",
-            },
-          ]}
+          rules={validationRules.taskFrom.title}
         >
           <Input />
         </Form.Item>
         <Form.Item
           name="description"
           label="Description"
-          rules={[
-            {
-              required: true,
-              message: "Please input task title",
-            },
-            {
-              min: 10,
-              message: "Min length 10",
-            },
-          ]}
+          rules={validationRules.taskFrom.description}
         >
           <TextArea />
         </Form.Item>

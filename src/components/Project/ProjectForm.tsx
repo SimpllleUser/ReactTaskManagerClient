@@ -57,14 +57,14 @@ const ProjectForm: React.FC<{
         <Form.Item
           name="title"
           label="Title"
-          rules={validationRules.taskFrom.title}
+          rules={validationRules.projectForm.title}
         >
           <Input />
         </Form.Item>
         <Form.Item
           name="description"
           label="Description"
-          rules={validationRules.taskFrom.description}
+          rules={validationRules.projectForm.description}
         >
           <TextArea />
         </Form.Item>

@@ -28,7 +28,7 @@ const description: Rule[] = [
 ];
 
 const rules = {
-    project: {
+    projectForm: {
         title,
         description,
     },

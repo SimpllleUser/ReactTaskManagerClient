@@ -1,52 +1,48 @@
-import React, { useState } from 'react';
-import { Form, Input, Button, Checkbox, Modal } from 'antd';
-import { useDispatch, useSelector } from "react-redux";
-import { signIn } from "../store/auth/actions";
+import React, { useMemo, useState } from 'react';
+import { Button, Modal, Row, Space, Tabs } from 'antd';
 import AnimatedBackgroud from '../layouts/AnimatedBackgroud/AnimatedBackgroud';
+import SingIn from '../components/Auth/SignIn';
+import SignUp from '../components/Auth/SignUp';
 
 const Auth: React.FC = () => {
-    const dispatch = useDispatch();
-    const [auth, setAuth] = useState({
-        login: '',
-        password: '',
-    });
-    const userSignIn = () => {
-        dispatch(signIn(auth));
-    }
+
+    const [showSignIn, setShowSignIn] = useState(true);
+    const titleModal = useMemo(() => `Sign ${ showSignIn ? 'in' : 'up' }` , [showSignIn]);
 
     return <AnimatedBackgroud>
-        <Modal centered title="Authorization" visible={true} footer={null} closable={false}>
-            <Form
-                initialValues={{ remember: true }}
-                autoComplete="off"
-            >
-                <Form.Item
-                    label="Username"
-                    name="username"
-                    rules={[{ required: true, message: 'Please input your username!' }]}
-                >
-                    <Input value={auth.login}
-                        onChange={({ target }) => {
-                            setAuth({ ...auth, login: target.value });
-                        }} />
-                </Form.Item>
+        <Modal
+            title={ <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <Button
+                    type="primary"
+                    block
+                    size='large'
+                    style={{ width: '100px' }}>
+                    <b>{titleModal}</b>
+                </Button>
+            </div> }
+            centered
+            visible={true}
+            footer={null}
+            closable={false}>
+            {showSignIn
+                ? <div >
+                    <SingIn />
+                    <Row align='middle' justify='center'>
+                        Don't have an account? <Button
+                            type="link"
+                            onClick={() => setShowSignIn(false)}
+                        > <b>Sign up</b> </Button>
+                    </Row>
+                </div> : <div>
+                    <SignUp />
+                    <Row align='middle' justify='center'>
+                        Already have an account?  <Button
+                            type="link"
+                            onClick={() => setShowSignIn(true)}
+                        > <b>Sign In</b></Button>
+                    </Row>
+                </div>}
 
-                <Form.Item
-                    label="Password"
-                    name="password"
-                    rules={[{ required: true, message: 'Please input your password!' }]}
-                >
-                    <Input.Password onChange={({ target }) => {
-                        setAuth({ ...auth, password: target.value });
-                    }} />
-                </Form.Item>
-
-                <Form.Item wrapperCol={{ offset: 20 }}>
-                    <Button type="primary" onClick={userSignIn}>
-                        Submit
-                    </Button>
-                </Form.Item>
-            </Form>
         </Modal>
     </AnimatedBackgroud>
 };

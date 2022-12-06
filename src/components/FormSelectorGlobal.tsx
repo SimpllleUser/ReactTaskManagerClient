@@ -8,6 +8,7 @@ import { getProjectStatuses } from '../store/project/actions';
 import { getTaskPriorities, getTaskStatuses, getTaskTypes } from '../store/task/actions';
 import { OptionGlobal } from '../types';
 import validationRules from '../utils/validation-rules'
+import OptionLabel from './OptionLabel';
 
 const FormSelectorGlobal: React.FC<{
     value: OptionGlobal | null,
@@ -59,7 +60,7 @@ const FormSelectorGlobal: React.FC<{
                         (option: any) => <Select.Option
                             key={`${option.id}-${option.name}`}
                             value={option.id
-                            }>{option.name}</Select.Option>,
+                            }><OptionLabel option={option}/></Select.Option>,
                     )}
                 </Select>
             </Form.Item>

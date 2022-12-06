@@ -1,4 +1,4 @@
-import { Layout, Menu } from 'antd';
+import { Button, Layout, Menu } from 'antd';
 import React, { useState } from 'react';
 import { useHistory } from "react-router-dom";
 import {
@@ -9,11 +9,19 @@ import {
 } from '@ant-design/icons';
 import './BaseLayout.css';
 
+import HeaderDefault from '../Header';
+import { useDispatch } from 'react-redux';
+import { logOut } from '../../store/auth/actions';
+
 const { Header, Sider, Content } = Layout;
 
 const BaseLayout: React.FC = ({ children }) => {
   const history = useHistory();
   const [collapsed, setCollapsed] = useState(false);
+  const dispatch = useDispatch();
+  const userLogOut = () => {
+    dispatch(logOut());
+  };
 
   return (
     <Layout style={{ height: '90vh' }}>
@@ -47,11 +55,18 @@ const BaseLayout: React.FC = ({ children }) => {
       </Sider>
       <Layout className="site-layout">
         <Header className="site-layout-background" style={{ padding: 0 }}>
-        <div style={{ width: '1rem' }}>
+        <div style={{ width: 'calc(100% - 15px)', display: 'flex', justifyContent: 'space-between'  }}>
+        <div>
         {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
             className: 'trigger',
             onClick: () => setCollapsed(!collapsed),
           })}
+        </div>
+        <div>
+          <Button key="1" type="primary" danger onClick={() => userLogOut()}>
+            Logout
+          </Button>
+          </div>
         </div>
         </Header>
         <Content

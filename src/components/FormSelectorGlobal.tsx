@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getProjectStatuses } from '../store/project/actions';
 import { getTaskPriorities, getTaskStatuses, getTaskTypes } from '../store/task/actions';
 import { OptionGlobal } from '../types';
+import validationRules from '../utils/validation-rules'
 
 const FormSelectorGlobal: React.FC<{
     value: OptionGlobal | null,
@@ -48,10 +49,8 @@ const FormSelectorGlobal: React.FC<{
         handleChange(Number(valueDefault?.id));
 
         return (<>
-            <Form.Item name={name} label={label} rules={[{
-                required: true,
-                message: `Please select ${domainName} ${entityName}`,
-            }]}>
+            <Form.Item name={name} label={label} rules={
+                validationRules.selector({ domainName, entityName })}>
                 <Select
                     onFocus={onActiveSelect}
                     onChange={handleChange}

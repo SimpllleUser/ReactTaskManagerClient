@@ -1,4 +1,10 @@
+import { message } from "antd";
 import { Rule } from "antd/lib/form";
+
+interface SelectorValidationParams {
+  domainName: string;
+  entityName: string;
+}
 
 const required = true;
 const TITLE_MIN_LENGTH = 3;
@@ -27,6 +33,11 @@ const description: Rule[] = [
       },
 ];
 
+const selector = ({ domainName, entityName }: SelectorValidationParams): Rule[] => ([{
+  required,
+  message: `Please select ${domainName} ${entityName}`,
+}]);
+
 const rules = {
     projectForm: {
         title,
@@ -36,6 +47,7 @@ const rules = {
         title,
         description,
     },
+    selector,
 };
 
 export default rules;

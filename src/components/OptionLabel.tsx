@@ -7,8 +7,8 @@ const OptionLabel: React.FC<any> = ({ option }: { option: Option }) => {
 
     const typeById: { [key: number | string]: ColorTypes } = {
         1: 'success',
-        2: 'error',
-        3: 'warning',
+        2: 'warning',
+        3: 'error',
         4: 'processing',
     }
 

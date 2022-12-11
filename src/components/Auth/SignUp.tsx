@@ -19,8 +19,8 @@ const SingUp: React.FC = () => {
                 autoComplete="off"
             >
                 <Form.Item
-                    label="Login"
-                    name="login"
+                    label="Username"
+                    name="username"
                     rules={[{ required: true, message: 'Please input your login' }]}
                 >
                     <Input value={auth.login}
@@ -30,8 +30,8 @@ const SingUp: React.FC = () => {
                 </Form.Item>
 
                 <Form.Item
-                    label="Username"
-                    name="username"
+                    label="Email"
+                    name="name"
                     rules={[{ required: true, message: 'Please input your username' }]}
                 >
                     <Input value={auth.login}

@@ -109,14 +109,14 @@ export const projectReducer = (state = initialState, action: actionTypes) => {
       const createdComment = action.payload;
       const currentProjectCommentList =
         [
-          ...state.projectComments[createdComment.projectId],
+          ...state?.projectComments[createdComment?.projectId] || [],
           createdComment,
         ] || [];
       return {
         ...state,
         projectComments: {
           ...state.projectComments,
-          [createdComment.projectId]: currentProjectCommentList,
+          [createdComment.projectId]: currentProjectCommentList || [],
         },
       };
     default:

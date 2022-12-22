@@ -58,7 +58,7 @@ export const taskReducer = (state = initialState, action: actionTypes) => {
                 }
             };
         case ADD_CRAETED_TASK:
-            const tasks = state.tasksByProject[action.payload.projectId];
+            const tasks = state.tasksByProject[action.payload.projectId] || [];
             return {
                 ...state, tasksByProject: {
                     ...state.tasksByProject,
